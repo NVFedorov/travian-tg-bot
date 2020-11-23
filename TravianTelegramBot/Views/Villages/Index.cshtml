@@ -1,0 +1,126 @@
+﻿@model IEnumerable<TravianTelegramBot.ViewModels.VillageViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<style>    
+    .dot {
+        height: 10px;
+        width: 10px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+        margin: auto 10px auto auto;
+    }
+
+    td{
+        vertical-align: middle !important;
+    }
+
+    td > p {
+        margin-bottom: 0;
+    }
+</style>
+<h3>Villages</h3>
+<div class="clearfix"></div>
+@if (Model == null)
+{
+    <div class="alert alert-danger">
+        <strong>Error!</strong><p>@(ViewBag.ErrorMessage ?? "Unexpected error occurred.")"</p>
+    </div>
+}
+else
+{
+    <div class="row container">
+        <div class="col-md-11" style="text-align:right">
+            <div id="successMessage" class="alert alert-success" style="display:none" onclick="$(this).css('display', 'none')">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Success!</strong><p></p>
+            </div>
+            <div id="errorMessage" class="alert alert-danger" style="display:none" onclick="$(this).css('display', 'none')">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Error!</strong><p></p>
+            </div>
+        </div>
+        <div class="col-md-12" style="text-align:right">
+            <a asp-action="Index" asp-controller="PlayerData" asp-route-username="@ViewData["username"]" class="btn btn-warning">Back</a>
+            <a asp-action="CleanVillages" asp-controller="Villages" asp-route-username="@ViewData["username"]" class="btn btn-danger">Reset</a>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th class="td-to-hide">
+                    Save Resource Feature
+                </th>
+                <th class="td-to-hide">
+                    Save Troops Feature
+                </th>
+                <th class="td-to-hide">
+                    Offence
+                </th>
+                <th class="td-to-hide">
+                    Deffence
+                </th>
+                <th class="td-to-hide">
+                    Resources
+                </th>
+                <th class="td-to-hide">
+                    Scan
+                </th>
+                <th class="td-to-hide">
+                    Spam
+                </th>
+                <th class="td-to-hide">
+                    Build
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    <input type="hidden" value="@item.VillageId" class="villageId" />
+                    <input type="hidden" value="@item.PlayerName" class="playerName" />
+                    <p class="villageName">@Html.DisplayFor(modelItem => item.VillageName)</p>
+                </td>
+                <td class="td-to-hide">
+                    <span class="dot" style="@(item.IsSaveResourcesFeatureOn ? "background-color:#40fe12" : "")"></span>@(item.IsSaveResourcesFeatureOn ? "On" : "Off")
+                </td>
+                <td class="td-to-hide">
+                    <span class="dot" style="@(item.IsSaveTroopsFeatureOn ? "background-color:#40fe12" : "")"></span>@(item.IsSaveTroopsFeatureOn ? "On" : "Off")
+                </td>
+                <td class="td-to-hide">
+                    <span class="dot" style="@(item.IsOffence ? "background-color:#40fe12" : "")"></span>@(item.IsOffence ? "On" : "Off")
+                </td>
+                <td class="td-to-hide">
+                    <span class="dot" style="@(item.IsDeffence ? "background-color:#40fe12" : "")"></span>@(item.IsDeffence ? "On" : "Off")
+                </td>
+                <td class="td-to-hide">
+                    <span class="dot" style="@(item.IsResource ? "background-color:#40fe12" : "")"></span>@(item.IsResource ? "On" : "Off")
+                </td>
+                <td class="td-to-hide">
+                    <span class="dot" style="@(item.IsScan ? "background-color:#40fe12" : "")"></span>@(item.IsScan ? "On" : "Off")
+                </td>
+                <td class="td-to-hide">
+                    <span class="dot" style="@(item.IsSpamFeatureOn ? "background-color:#40fe12" : "")"></span>@(item.IsSpamFeatureOn ? "On" : "Off")
+                </td>
+                <td class="td-to-hide">
+                    <span class="dot" style="@(item.IsBuildFeatureOn ? "background-color:#40fe12" : "")"></span>@(item.IsBuildFeatureOn ? "On" : "Off")
+                </td>
+                <td style="text-align: right">
+                    <button class="btn btn-default" style="padding: 3px 5px 1px 5px;" onclick="location.href = '@Url.Action("Settings", new { userName = ViewData["username"], villageId = item.VillageId })'">
+                        <i class="glyphicon glyphicon-cog" style="font-size:24px;color:#777777"></i>
+                    </button>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}

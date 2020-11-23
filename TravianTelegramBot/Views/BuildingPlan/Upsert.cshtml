@@ -1,0 +1,163 @@
+﻿@model TravianTelegramBot.ViewModels.BuildingPlanViewModel
+
+@{
+    ViewData["Title"] = "Update";
+    var queueModel = ViewData["queueModel"];
+    var buildings = ViewData["buildings"];
+}
+
+<h2>Update</h2>
+
+<h4>Building Plan</h4>
+<hr />
+@if (Model == null)
+{
+    <div class="alert alert-danger">
+        <strong>Error!</strong><p>@(ViewBag.ErrorMessage ?? "Unexpected error occurred.")"</p>
+    </div>
+}
+else
+{
+    <div class="row container">
+        <div class="col-md-11" style="text-align:right">
+            <div id="successMessage" class="alert alert-success" style="display:none" onclick="$(this).css('display', 'none')">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Success!</strong><p></p>
+            </div>
+            <div id="errorMessage" class="alert alert-danger" style="display:none" onclick="$(this).css('display', 'none')">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Error!</strong><p></p>
+            </div>
+        </div>
+        <div class="col-md-12" style="text-align:right">
+            <a asp-action="List" class="btn btn-warning">Back</a>
+        </div>
+    </div>
+    <div class="row container-fluid">
+        <form asp-action="Upsert" id="upsert-form">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @Html.HiddenFor(m => m._id)
+            @Html.HiddenFor(m => m.BotUserName)
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="VillageType" class="control-label"></label>
+                        <select asp-for="VillageType" asp-items="Html.GetEnumSelectList<TTB.DAL.Models.PlayerModels.Enums.VillageType>()" class="form-control"></select>
+                        <span asp-validation-for="VillageType" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @await Html.PartialAsync("_BuildingQueue", Model.BuildingSteps)
+            </div>
+            <div class="clearfix"></div>
+            <br />
+            <div class="row">
+                <div class="form-group">
+                    <input type="submit" value="@(string.IsNullOrEmpty(Model._id) ? "Create" : "Update")" class="btn btn-primary" />
+                </div>
+            </div>
+        </form>
+    </div>
+}
+
+@section Scripts{
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+    <script type="text/javascript">
+        var queue = @Html.Raw(Json.Serialize(Model));
+        var buildings = @Html.Raw(Json.Serialize(buildings));
+
+        $(document).ready(() => {
+            if (queue.buildingSteps && queue.buildingSteps.length) {
+                queue.buildingSteps.forEach(q => {
+                    $("#building-plan-table tbody").append(createRow(q.building.buildingId, q.level));
+                });
+            }
+
+            $("#building-plan-table tbody").sortable({
+                update: function () {
+                    updateOrder();
+                }
+            });
+        });
+
+        $(document).on('submit', '#upsert-form', function () {
+            let self = this;
+            let buildingSteps = [];
+            $("#building-plan-table tbody tr").each(function (i) {
+                let hidden1 = $(`<input type='hidden' name='BuildingSteps[${i}].Order' value='${$(this).find("td.order").text()}'/>`);
+                let hidden2 = $(`<input type='hidden' name='BuildingSteps[${i}].Building.BuildingId' value='${$(this).find("td select.buildingDdl").val()}'/>`);
+                let hidden3 = $(`<input type='hidden' name='BuildingSteps[${i}].Level' value='${$(this).find("td select.levelDdl").val()}'/>`);
+                $(self).append(hidden1).append(hidden2).append(hidden3);
+            });
+
+            //$("input[name=BuildingSteps]").val(buildingSteps);
+            return true;
+        });
+
+        function createRow(building, level) {
+            let rowCount = $("#building-plan-table tbody tr").length;
+            let tr = document.createElement("tr");
+            let orderTd = document.createElement("td");
+            $(orderTd).addClass("fit");
+            $(orderTd).addClass("order");
+            $(orderTd).text(rowCount);
+            let buildingSelectTd = $("<td></td>").append(createDropDown(building));
+            let levelSelectTd = $("<td></td>").append(createLevelDropDown(level));
+            let removeBtnTd = $("<td class='fit'></td>").append($("<button type='button'>X</button>").addClass("btn btn-danger"));
+            $(removeBtnTd).click((e) => {
+                $(tr).remove();
+                updateOrder();
+            });
+
+            $(tr).append(orderTd).append(buildingSelectTd).append(levelSelectTd).append(removeBtnTd);
+            return tr;
+        }
+
+        function createDropDown(selected) {
+            let dropDown = document.createElement("select");
+            $(dropDown).addClass("buildingDdl");
+            buildings.forEach((b, i) => {
+                let option = $("<option></option>").attr("value", b.buildingId).text(b.localizedNameEn);
+                if (b.buildingId === selected)
+                    $(option).attr("selected", true);
+
+                $(dropDown).append(option);
+            });
+            $(dropDown).addClass("form-control");
+            return dropDown;
+        }
+
+        function createLevelDropDown(selected) {
+            let dropDown = document.createElement("select");
+            $(dropDown).addClass("levelDdl");
+            for (let i = 0; i < 21; i++) {
+                let option = $("<option></option>").attr("value", i).text(i);
+                if (i === selected)
+                    $(option).attr("selected", true);
+
+                $(dropDown).append(option);
+            }
+            $(dropDown).addClass("form-control");
+            return dropDown;
+        }
+
+        $("#addBtn").click(function (e) {
+            $("#building-plan-table tbody").append(createRow(null, 0));
+        });
+
+        function updateOrder() {
+            let rows = $("#building-plan-table tbody tr");
+            $("#building-plan-table tbody tr").each(function(i) {
+                let orderTd = $(this).find("td.order");
+                $(orderTd).text(i);
+            });
+        }
+
+    </script>
+}

@@ -1,0 +1,68 @@
+﻿@model IEnumerable<TTB.DAL.Models.ScenarioModels.ArmyEventModel>
+
+@{
+    ViewData["Title"] = "ArmyEventsList";
+}
+
+<h2>Army Events List</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EventId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArmyEventId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserVillage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Importance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DetailsUrl)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArmyEventId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserVillage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Importance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DetailsUrl)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,128 @@
+﻿@model IEnumerable<TTB.DAL.Models.GameModels.UnitModel>
+@{
+    ViewData["Title"] = "Spam Units";
+    var username = ViewData["username"];
+    var villageId = ViewData["villageId"];
+    var selected = (IDictionary<string, int>
+        )ViewData["selected"];
+}
+
+<h2>@ViewData["Title"]</h2>
+
+        &nbsp;
+<div class="row container" style="text-align:right">
+    <button class="btn btn-info" onclick="save()">Save</button>
+    <a asp-action="Index" asp-route-username="@username" class="btn btn-warning">Back</a>
+</div>
+        &nbsp;
+<div id="successMessage" class="alert alert-success" style="display:none" onclick="$(this).css('display', 'none')">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Success!</strong><p></p>
+</div>
+<div id="errorMessage" class="alert alert-danger" style="display:none" onclick="$(this).css('display', 'none')">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Error!</strong><p></p>
+</div>
+<div class="clear-fix"></div>
+        &nbsp;
+
+@if (Model != null)
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th class="td-to-hide">
+                    @Html.DisplayNameFor(model => model.Expenses)
+                </th>
+                <th class="td-to-hide">
+                    @Html.DisplayNameFor(model => model.Speed)
+                </th>
+                <th class="td-to-hide">
+                    @Html.DisplayNameFor(model => model.Capacity)
+                </th>
+                <th class="td-to-hide">
+                    @Html.DisplayNameFor(model => model.Attack)
+                </th>
+                <th class="td-to-hide">
+                    Def against Infantry
+                </th>
+                <th class="td-to-hide">
+                    Def against Cavalry)
+                </th>
+                <th>
+                    Type
+                </th>
+                <th>
+                    Quantity
+                </th>
+            </tr>
+        </thead>
+        <tbody id="source">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @Html.HiddenFor(modelItem => item.Name, new { @class = "name" })
+                    <td>
+                        <p class="localized-name">@Html.DisplayFor(modelItem => item.LocalizedNameEn)</p>
+                    </td>
+                    <td class="col-to-hide">
+                        @Html.DisplayFor(modelItem => item.Expenses)
+                    </td>
+                    <td class="col-to-hide">
+                        @Html.DisplayFor(modelItem => item.Speed)
+                    </td>
+                    <td class="col-to-hide">
+                        @Html.DisplayFor(modelItem => item.Capacity)
+                    </td>
+                    <td class="td-to-hide">
+                        @Html.DisplayFor(modelItem => item.Attack)
+                    </td>
+                    <td class="td-to-hide">
+                        @Html.DisplayFor(modelItem => item.DeffenceAgainstInfantry)
+                    </td>
+                    <td class="td-to-hide">
+                        @Html.DisplayFor(modelItem => item.DeffenceAgainstCavalry)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UnitType)
+                    </td>
+                    <td>
+                        <input class="form-control quantity" type="number" value="@(selected != null && selected.ContainsKey(item.Name) ? selected[item.Name].ToString() : string.Empty)" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@section Scripts{
+    <script type="text/javascript">
+    function save() {
+        const pairs = {};
+        $('#source').find(`tr`).each(function (i, obj) {
+            let name = $(obj).find("input[type='hidden']").val();
+            let quantity = $(obj).find(".quantity").val() - 0;
+            pairs[name] = quantity;
+        });
+
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            dataType: "json",
+            url: "@Url.Action("UpdateSpamUnits", "Villages", new { villageId })",
+            data: JSON.stringify(pairs),
+            success: (response) => {
+                $("#successMessage p").text(response.result);
+                $("#successMessage").css("display", "");
+            },
+            error: (xhr, status, resp) => {
+                $("#errorMessage p").text(xhr.responseJSON.result);
+                $("#errorMessage").css("display", "");
+            }
+        })
+    }
+    </script>
+}

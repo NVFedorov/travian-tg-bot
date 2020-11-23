@@ -1,0 +1,108 @@
+﻿@{
+    ViewData["Title"] = "Travian Bot Manager";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewData["Title"]</title>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+    </environment>
+    <environment include="Development">
+        <link rel="stylesheet" href="~/vendors//bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/vendors//bootstrap/dist/css/bootstrap-theme.min.css" />
+    </environment>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <p class="navbar-brand">@ViewData["Title"]</p>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li><a asp-controller="Home" asp-action="Index">Travian Users</a></li>
+                        <li><a asp-controller="BuildingPlan" asp-action="List">Building Plans</a></li>
+                        @if (User.IsInRole("Admin") || User.IsInRole("LogViewer"))
+                        {
+                            <li><a asp-controller="Log" asp-action="ManagerLogs">Logs</a></li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    Manage
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <li><a asp-controller="BotUser" asp-action="List">Users</a></li>
+                                    }
+                                    <li><a asp-controller="KnowledgeBase" asp-action="Units">Units</a></li>
+                                    <li><a asp-controller="KnowledgeBase" asp-action="Buildings">Buildings</a></li>
+                                </ul>
+                            </li>
+                        }
+                        @*<li><a asp-controller="Home" asp-action="About">About</a></li>
+            <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>*@
+                    }
+                </ul>
+                <ul class="nav navbar-nav pull-right">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li><a>Welcome, @User.Identity.Name</a></li>
+                        <li><a asp-controller="Account" asp-action="LogOut">Log out</a></li>
+                    }
+                    else
+                    {
+                        <li><a asp-controller="Account" asp-action="Login">Login</a></li>
+                        <li><a asp-controller="Account" asp-action="Register">Register</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div id="body-wrapper" class="container body-content">
+        <div class="loader" style="display:none"><div></div></div>
+        @RenderBody()
+    </div>
+
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+    </environment>
+    <environment include="Development">
+        <script src="~/vendors/jquery/dist/jquery.min.js"></script>
+        <script src="~/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    </environment>
+    <script src="~/js/site.js"></script>
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,586 @@
+[
+  {
+    "name": "woodcutter",
+    "buildingId": "gid1",
+    "localizedNameEn": "Woodcutter",
+    "localizedNameRu": "Woodcutter",
+    "levelInfos": [
+      {
+        "level": 1,
+        "resources": {
+          "lumber": 40,
+          "clay": 100,
+          "iron": 50,
+          "crop": 60
+        },
+        "buildingTime": "00:04:20",
+        "cultureProduction": 1,
+        "cropConsumption": 2,
+        "upgradedProperty": 7
+      }
+    ],
+    "prerequiresites": null,
+    "tribe": "NOT_SPECIFIED"
+  },
+  {
+    "name": "clay_pit",
+    "localizedNameEn": "Clay Pit",
+    "localizedNameRu": "Clay Pit",
+    "buildingId": "gid2",
+    "levelInfos": [
+      {
+        "level": 1,
+        "resources": {
+          "lumber": 80,
+          "clay": 40,
+          "iron": 80,
+          "crop": 50
+        },
+        "buildingTime": "00:03:40",
+        "cultureProduction": 1,
+        "cropConsumption": 2,
+        "upgradedProperty": 7
+      }
+    ],
+    "prerequiresites": null,
+    "tribe": "NOT_SPECIFIED"
+  },
+  {
+    "name": "iron_mine",
+    "localizedNameEn": "Iron Mine",
+    "localizedNameRu": "Iron Mine",
+    "buildingId": "gid3",
+    "levelInfos": [
+      {
+        "level": 1,
+        "resources": {
+          "lumber": 100,
+          "clay": 80,
+          "iron": 30,
+          "crop": 60
+        },
+        "buildingTime": "00:07:30",
+        "cultureProduction": 1,
+        "cropConsumption": 3,
+        "upgradedProperty": 7
+      }
+    ],
+    "prerequiresites": null,
+    "tribe": "NOT_SPECIFIED"
+  },
+  {
+    "name": "cropland",
+    "localizedNameEn": "Cropland",
+    "localizedNameRu": "Cropland",
+    "buildingId": "gid4",
+    "levelInfos": [
+      {
+        "level": 1,
+        "resources": {
+          "lumber": 70,
+          "clay": 90,
+          "iron": 70,
+          "crop": 20
+        },
+        "buildingTime": "00:02:30",
+        "cultureProduction": 1,
+        "cropConsumption": 0,
+        "upgradedProperty": 7
+      }
+    ],
+    "prerequiresites": null,
+    "tribe": "NOT_SPECIFIED"
+  },
+  {
+    "name": "main_building",
+    "localizedNameEn": "Main Building",
+    "localizedNameRu": "Main Building",
+    "buildingId": "g15",
+    "prefferedBuildingSlot": "aid26",
+    "levelInfos": [
+      {
+        "level": 1,
+        "resources": {
+          "lumber": 70,
+          "clay": 40,
+          "iron": 60,
+          "crop": 20
+        },
+        "buildingTime": "00:41:40",
+        "cultureProduction": 2,
+        "cropConsumption": 2,
+        "upgradedProperty": 100
+      }
+    ],
+    "prerequiresites": null,
+    "tribe": "NOT_SPECIFIED"
+  },
+  {
+    "name": "warehouse",
+    "localizedNameEn": "Warehouse",
+    "localizedNameRu": "Warehouse",
+    "buildingId": "g10",
+    "prefferedBuildingSlot": "aid30",
+    "levelInfos": [
+      {
+        "level": 1,
+        "resources": {
+          "lumber": 130,
+          "clay": 160,
+          "iron": 90,
+          "crop": 40
+        },
+        "buildingTime": "00:33:20",
+        "cultureProduction": 1,
+        "cropConsumption": 1,
+        "upgradedProperty": 1200
+      }
+    ],
+    "prerequiresites": [
+      {
+        "name": "main_building",
+        "level": 1
+      }
+    ],
+    "tribe": "NOT_SPECIFIED"
+  },
+  {
+    "name": "granary",
+    "localizedNameEn": "Granary",
+    "localizedNameRu": "Granary",
+    "buildingId": "g11",
+    "prefferedBuildingSlot": "aid32",
+    "levelInfos": [
+      {
+        "level": 1,
+        "resources": {
+          "lumber": 800,
+          "clay": 100,
+          "iron": 70,
+          "crop": 20
+        },
+        "buildingTime": "00:26:40",
+        "cultureProduction": 1,
+        "cropConsumption": 1,
+        "upgradedProperty": 1200
+      }
+    ],
+    "prerequiresites": [
+      {
+        "name": "main_building",
+        "level": 1
+      }
+    ],
+    "tribe": "NOT_SPECIFIED"
+  },
+  {
+    "name": "sawmill",
+    "localizedNameEn": "Sawmill",
+    "localizedNameRu": "Sawmill",
+    "buildingId": "g5",
+    "prefferedBuildingSlot": "aid33",
+    "levelInfos": [
+      {
+        "level": 1,
+        "resources": {
+          "lumber": 520,
+          "clay": 380,
+          "iron": 290,
+          "crop": 90
+        },
+        "buildingTime": "00:50:00",
+        "cultureProduction": 1,
+        "cropConsumption": 4,
+        "upgradedProperty": 5
+      }
+    ],
+    "prerequiresites": [
+      {
+        "name": "main_building",
+        "level": 5
+      },
+      {
+        "name": "woodcutter",
+        "level": 10
+      }
+    ],
+    "tribe": "NOT_SPECIFIED"
+  },
+  {
+    "name": "brickyard",
+    "localizedNameEn": "Brickyard",
+    "localizedNameRu": "Brickyard",
+    "buildingId": "g6",
+    "prefferedBuildingSlot": "aid36",
+    "levelInfos": [
+      {
+        "level": 1,
+        "resources": {
+          "lumber": 440,
+          "clay": 480,
+          "iron": 320,
+          "crop": 50
+        },
+        "buildingTime": "00:47:20",
+        "cultureProduction": 1,
+        "cropConsumption": 3,
+        "upgradedProperty": 5
+      }
+    ],
+    "prerequiresites": [
+      {
+        "name": "main_building",
+        "level": 5
+      },
+      {
+        "name": "clay_pit",
+        "level": 10
+      }
+    ],
+    "tribe": "NOT_SPECIFIED"
+  },
+  {
+    "name": "iron_foundry",
+    "localizedNameEn": "Iron Foundry",
+    "localizedNameRu": "Iron Foundry",
+    "buildingId": "g7",
+    "prefferedBuildingSlot": "aid35",
+    "levelInfos": [
+      {
+        "level": 1,
+        "resources": {
+          "lumber": 200,
+          "clay": 450,
+          "iron": 510,
+          "crop": 120
+        },
+        "buildingTime": "01:08:00",
+        "cultureProduction": 1,
+        "cropConsumption": 6,
+        "upgradedProperty": 5
+      }
+    ],
+    "prerequiresites": [
+      {
+        "name": "main_building",
+        "level": 5
+      },
+      {
+        "name": "iron_mine",
+        "level": 10
+      }
+    ],
+    "tribe": "NOT_SPECIFIED"
+  },
+  {
+    "name": "grain_mill",
+    "localizedNameEn": "Grain Mill",
+    "localizedNameRu": "Grain Mill",
+    "buildingId": "g8",
+    "prefferedBuildingSlot": "aid23",
+    "levelInfos": [
+      {
+        "level": 1,
+        "resources": {
+          "lumber": 500,
+          "clay": 440,
+          "iron": 380,
+          "crop": 1240
+        },
+        "buildingTime": "00:30:40",
+        "cultureProduction": 1,
+        "cropConsumption": 3,
+        "upgradedProperty": 5
+      }
+    ],
+    "prerequiresites": [
+      {
+        "name": "cropland",
+        "level": 5
+      }
+    ],
+    "tribe": "NOT_SPECIFIED"
+  },
+  {
+    "name": "bakery",
+    "localizedNameEn": "Bakery",
+    "localizedNameRu": "Bakery",
+    "buildingId": "g9",
+    "prefferedBuildingSlot": "aid25",
+    "levelInfos": [
+      {
+        "level": 1,
+        "resources": {
+          "lumber": 500,
+          "clay": 440,
+          "iron": 380,
+          "crop": 1240
+        },
+        "buildingTime": "01:01:20",
+        "cultureProduction": 1,
+        "cropConsumption": 3,
+        "upgradedProperty": 5
+      }
+    ],
+    "prerequiresites": [
+      {
+        "name": "main_building",
+        "level": 5
+      },
+      {
+        "name": "grain_mill",
+        "level": 5
+      },
+      {
+        "name": "cropland",
+        "level": 10
+      }
+    ],
+    "tribe": "NOT_SPECIFIED"
+  },
+  {
+    "name": "marketplace",
+    "localizedNameEn": "Marketplace",
+    "localizedNameRu": "Marketplace",
+    "buildingId": "g17",
+    "prefferedBuildingSlot": "aid37",
+    "levelInfos": [
+      {
+        "level": 1,
+        "resources": {
+          "lumber": 80,
+          "clay": 70,
+          "iron": 120,
+          "crop": 70
+        },
+        "buildingTime": "00:30:00",
+        "cultureProduction": 1,
+        "cropConsumption": 4,
+        "upgradedProperty": 1
+      }
+    ],
+    "prerequiresites": [
+      {
+        "name": "main_building",
+        "level": 3
+      },
+      {
+        "name": "warehouse",
+        "level": 1
+      },
+      {
+        "name": "granary",
+        "level": 1
+      }
+    ],
+    "tribe": "NOT_SPECIFIED"
+  },
+  {
+    "name": "rally_point",
+    "localizedNameEn": "Rally Point",
+    "localizedNameRu": "Rally Point",
+    "buildingId": "g16",
+    "prefferedBuildingSlot": "aid39",
+    "levelInfos": [
+      {
+        "level": 1,
+        "resources": {
+          "lumber": 110,
+          "clay": 160,
+          "iron": 90,
+          "crop": 70
+        },
+        "buildingTime": "00:33:20",
+        "cultureProduction": 1,
+        "cropConsumption": 1,
+        "upgradedProperty": 1
+      }
+    ],
+    "prerequiresites": [],
+    "tribe": "NOT_SPECIFIED"
+  },
+  {
+    "name": "barracks",
+    "localizedNameEn": "Barracks",
+    "localizedNameRu": "Barracks",
+    "buildingId": "g19",
+    "prefferedBuildingSlot": "aid34",
+    "levelInfos": [
+      {
+        "level": 1,
+        "resources": {
+          "lumber": 210,
+          "clay": 140,
+          "iron": 260,
+          "crop": 120
+        },
+        "buildingTime": "00:33:20",
+        "cultureProduction": 1,
+        "cropConsumption": 4,
+        "upgradedProperty": 1.0
+      }
+    ],
+    "prerequiresites": [
+      {
+        "name": "main_building",
+        "level": 3
+      },
+      {
+        "name": "rally_point",
+        "level": 1
+      }
+    ],
+    "tribe": "NOT_SPECIFIED"
+  },
+  {
+    "name": "academy",
+    "localizedNameEn": "Academy",
+    "localizedNameRu": "Academy",
+    "buildingId": "g22",
+    "prefferedBuildingSlot": "aid19",
+    "levelInfos": [
+      {
+        "level": 1,
+        "resources": {
+          "lumber": 220,
+          "clay": 160,
+          "iron": 90,
+          "crop": 40
+        },
+        "buildingTime": "00:33:20",
+        "cultureProduction": 5,
+        "cropConsumption": 4,
+        "upgradedProperty": 0
+      }
+    ],
+    "prerequiresites": [
+      {
+        "name": "main_building",
+        "level": 3
+      },
+      {
+        "name": "barracks",
+        "level": 3
+      }
+    ],
+    "tribe": "NOT_SPECIFIED"
+  },
+  {
+    "name": "smithy",
+    "localizedNameEn": "Smithy",
+    "localizedNameRu": "Smithy",
+    "buildingId": "g13",
+    "prefferedBuildingSlot": "aid24",
+    "levelInfos": [
+      {
+        "level": 1,
+        "resources": {
+          "lumber": 180,
+          "clay": 250,
+          "iron": 500,
+          "crop": 160
+        },
+        "buildingTime": "00:33:20",
+        "cultureProduction": 2,
+        "cropConsumption": 4,
+        "upgradedProperty": 1
+      }
+    ],
+    "prerequiresites": [
+      {
+        "name": "main_building",
+        "level": 3
+      },
+      {
+        "name": "academy",
+        "level": 1
+      }
+    ],
+    "tribe": "NOT_SPECIFIED"
+  },
+  {
+    "name": "stable",
+    "localizedNameEn": "Stable",
+    "localizedNameRu": "Stable",
+    "buildingId": "g20",
+    "prefferedBuildingSlot": "aid27",
+    "levelInfos": [
+      {
+        "level": 1,
+        "resources": {
+          "lumber": 260,
+          "clay": 140,
+          "iron": 220,
+          "crop": 100
+        },
+        "buildingTime": "00:36:40",
+        "cultureProduction": 2,
+        "cropConsumption": 5,
+        "upgradedProperty": 1.0
+      }
+    ],
+    "prerequiresites": [
+      {
+        "name": "smithy",
+        "level": 3
+      },
+      {
+        "name": "academy",
+        "level": 5
+      }
+    ],
+    "tribe": "NOT_SPECIFIED"
+  },
+  {
+    "name": "trade_office",
+    "localizedNameEn": "Trade Office",
+    "localizedNameRu": "Trade Office",
+    "buildingId": "g28",
+    "prefferedBuildingSlot": "aid20",
+    "levelInfos": [],
+    "prerequiresites": [
+      {
+        "name": "marketplace",
+        "level": 20
+      },
+      {
+        "name": "stable",
+        "level": 10
+      }
+    ],
+    "tribe": "NOT_SPECIFIED"
+  },
+  {
+    "name": "residence",
+    "localizedNameEn": "Residence",
+    "localizedNameRu": "Residence",
+    "buildingId": "g25",
+    "prefferedBuildingSlot": "aid22",
+    "levelInfos": [
+      {
+        "level": 1,
+        "resources": {
+          "lumber": 580,
+          "clay": 460,
+          "iron": 350,
+          "crop": 180
+        },
+        "buildingTime": "00:33:20",
+        "cultureProduction": 2,
+        "cropConsumption": 1,
+        "upgradedProperty": 2
+      }
+    ],
+    "prerequiresites": [
+      {
+        "name": "main_building",
+        "level": 5
+      },
+      {
+        "name": "palace",
+        "level": 0
+      }
+    ],
+    "tribe": "NOT_SPECIFIED"
+  }
+]

@@ -1,0 +1,79 @@
+﻿@model IEnumerable<TTB.DAL.Models.GameModels.BuildingModel>
+@{
+    ViewData["Title"] = "Buildings List";
+}
+
+<h2>BuildingsList</h2>
+
+<style>
+    .nowrap {
+        white-space: nowrap;
+    }
+
+    #body-wrapper {
+        width: 100%;
+        padding: 0 50px 0 50px;
+    }
+</style>
+
+<h1>@ViewData["Title"]</h1>
+<h4>Update Buildings</h4>
+<div class="row">
+    <div class="container-fluid col-xs-4">
+        <form method="post" enctype="multipart/form-data" asp-controller="KnowledgeBase" asp-action="UploadBuildings">
+            <div class="form-group container-fluid">
+                <div class="col-xs-3">
+                    <p>Buildings JSON file:</p>
+                </div>
+                <div class="col-xs-6">
+                    <input type="file" name="formFile" class="form-control" />
+                </div>
+                <div class="col-xs-3">
+                    <input type="submit" value="Upload" class="btn btn-info" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-xs-4 pull-right" style="text-align:right">
+        <a asp-action="List" asp-controller="TravianUser" class="btn btn-warning">Back</a>
+    </div>
+</div>
+<div class="clearfix"></div>
+@if (ViewData["Error"] != null)
+{
+    <div class="container" style="padding-top: 5px;">
+        <div id="errorMessage" class="alert alert-danger">
+            <strong>Error!</strong><p>@ViewData["Error"]</p>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th class="col-to-hide">
+                @Html.DisplayNameFor(model => model.BuildingId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="col-to-hide">
+                        @Html.DisplayFor(modelItem => item.BuildingId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

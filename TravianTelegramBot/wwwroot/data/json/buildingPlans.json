@@ -1,0 +1,159 @@
+[
+  {
+    "name": "Default",
+    "botUserName": "DefaultUserName_210",
+    "villageType": "RESOURCES",
+    "buildingSteps": [
+      {
+        "order": 0,
+        "buildingId": "g15",
+        "level": 3
+      },
+      {
+        "order": 1,
+        "buildingId": "g10",
+        "level": 5
+      },
+      {
+        "order": 2,
+        "buildingId": "g11",
+        "level": 4
+      },
+      {
+        "order": 3,
+        "buildingId": "g16",
+        "level": 1
+      },
+      {
+        "order": 4,
+        "buildingId": "g15",
+        "level": 12
+      },
+      {
+        "order": 5,
+        "buildingId": "g10",
+        "level": 12
+      },
+      {
+        "order": 6,
+        "buildingId": "g11",
+        "level": 9
+      },
+      {
+        "order": 7,
+        "buildingId": "g25",
+        "level": 3
+      },
+      {
+        "order": 8,
+        "buildingId": "g15",
+        "level": 20
+      },
+      {
+        "order": 9,
+        "buildingId": "g17",
+        "level": 3
+      },
+      {
+        "order": 10,
+        "buildingId": "g19",
+        "level": 3
+      },
+      {
+        "order": 11,
+        "buildingId": "g22",
+        "level": 5
+      },
+      {
+        "order": 12,
+        "buildingId": "g13",
+        "level": 3
+      },
+      {
+        "order": 13,
+        "buildingId": "g20",
+        "level": 5
+      },
+      {
+        "order": 14,
+        "buildingId": "g6",
+        "level": 2
+      },
+      {
+        "order": 15,
+        "buildingId": "g5",
+        "level": 2
+      },
+      {
+        "order": 16,
+        "buildingId": "g6",
+        "level": 3
+      },
+      {
+        "order": 17,
+        "buildingId": "g5",
+        "level": 3
+      },
+      {
+        "order": 18,
+        "buildingId": "g7",
+        "level": 2
+      },
+      {
+        "order": 19,
+        "buildingId": "g6",
+        "level": 5
+      },
+      {
+        "order": 20,
+        "buildingId": "g5",
+        "level": 5
+      },
+      {
+        "order": 21,
+        "buildingId": "g7",
+        "level": 5
+      },
+      {
+        "order": 22,
+        "buildingId": "g10",
+        "level": 20
+      },
+      {
+        "order": 23,
+        "buildingId": "g11",
+        "level": 20
+      },
+      {
+        "order": 24,
+        "buildingId": "g17",
+        "level": 20
+      },
+      {
+        "order": 25,
+        "buildingId": "g20",
+        "level": 10
+      },
+      {
+        "order": 26,
+        "buildingId": "g28",
+        "level": 12
+      },
+      {
+        "order": 27,
+        "buildingId": "g8",
+        "level": 5
+      },
+      {
+        "order": 28,
+        "buildingId": "g9",
+        "level": 5
+      },
+      {
+        "order": 29,
+        "buildingId": "g25",
+        "level": 10
+      }
+    ]
+  }
+]

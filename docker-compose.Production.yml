@@ -1,0 +1,44 @@
+version: '3.4'
+
+services:
+  mongo:
+    image: mongo:4.0.4
+    expose:
+        - "27017"
+    volumes:
+      - mongo:/data/db
+
+  hub:
+    image: selenium/hub:3.141.59-vanadium
+    container_name: hub
+    expose:
+      - "4444"
+
+  firefox:
+    image: selenium/node-firefox:3.141.59-vanadium
+    depends_on:
+      - hub
+    environment:
+      - HUB_HOST=hub
+      - HUB_PORT=4444
+  web:
+    image: unexpectedbot/travian-tg-bot:latest
+    restart: always
+    ports:
+        - "443:443"
+        - "80:80"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      DatabaseSettings__ConnectionString: mongodb://mongo:27017
+      DatabaseSettings__DatabaseName: travian
+      WebDriverSettings__RemoteDriverUrl: http://hub:4444/wd/hub
+      SecretSettings__RegistrationDefaultSecret: # registration default secret
+      SecretSettings__AdminDefaultSecret: # admin default secret
+      BotConfiguration__BotToken: #telegram bot security token
+      BotConfiguration__Socks5Host: 
+      BotConfiguration__Socks5Port: 1080
+    depends_on:
+      - mongo
+
+volumes: 
+  mongo:

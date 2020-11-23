@@ -1,0 +1,154 @@
+﻿@model IEnumerable<TTB.DAL.Models.CookieModel>
+@{
+    ViewData["Title"] = "Setup Cookies";
+    var defaultCookieNames = new string[] { "CAD", "T3E", "sess_id" };
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<button id="add-btn" class="btn btn-warning">Add Cookie</button>
+<button id="save-btn" class="btn btn-info">Save</button>
+<div class="container" style="padding-top: 5px;">
+    <div id="successMessage" class="alert alert-success" style="display:none" onclick="$(this).css('display', 'none')">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Success!</strong><p></p>
+    </div>
+    <div id="errorMessage" class="alert alert-danger" style="display:none" onclick="$(this).css('display', 'none')">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Error!</strong><p></p>
+    </div>
+</div>
+<table class="table" id="cookie-table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Value
+            </th>
+            <th>
+                Domain
+            </th>
+            <th>
+                Path
+            </th>
+            <th>
+                Expiry
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var cookie in Model)
+            {
+                <tr>
+                    <td>
+                        <input class="form-control cookie-name" value="@cookie.Name" />
+                    </td>
+                    <td>
+                        <input class="form-control cookie-value" value="@cookie.Value" />
+                    </td>
+                    <td>
+                        <input class="form-control cookie-domain" value="@cookie.Domain" />
+                    </td>
+                    <td>
+                        <input class="form-control cookie-path" value="@cookie.Path" />
+                    </td>
+                    <td>
+                        <input class="form-control cookie-expiry" value="@cookie.Expiry" />
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" onclick="deleteCookie(this)">Delete</button>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            foreach (var cookieName in defaultCookieNames)
+            {
+                <tr>
+                    <td>
+                        <input class="form-control cookie-name" value="@cookieName" />
+                    </td>
+                    <td>
+                        <input class="form-control cookie-value" />
+                    </td>
+                    <td>
+                        <input class="form-control cookie-domain" />
+                    </td>
+                    <td>
+                        <input class="form-control cookie-path" />
+                    </td>
+                    <td>
+                        <input class="form-control cookie-expiry" />
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" onclick="deleteCookie(this)">Delete</button>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<div>
+    <a asp-action="List" class="btn btn-warning">Back to List</a>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+
+    $(document).ready(() => {
+        $("#add-btn").click(e => {
+            $("#cookie-table tbody").append(
+                '<tr><td><input class="form-control cookie-name" /></td><td><input class="form-control cookie-value" /></td><td><input class="form-control cookie-path" /></td>' +
+                '<td><input class="form-control cookie-domain" /></td><td><input class="form-control cookie-expiry" /></td><td><button class="btn btn-danger" onclick="deleteCookie(this)">Delete</button></td></tr>'
+            )
+        });
+
+        $("#save-btn").click(e => {
+            let cookiesBuff = [];
+            $("#cookie-table tbody tr").each((i, elem) => {
+                let cookie = {
+                    name: $(elem).find(".cookie-name").val(),
+                    value: $(elem).find(".cookie-value").val(),
+                    domain: $(elem).find(".cookie-domain").val(),
+                    path: $(elem).find(".cookie-path").val(),
+                    expiry: $(elem).find(".cookie-expiry").val()
+                }
+                cookiesBuff.push(cookie);
+            });
+            save(cookiesBuff);
+        });
+    })
+
+    function deleteCookie(btn) {
+        let tr = $(btn).closest("tr");
+        $(tr).remove();
+    }
+
+    function save(cookies) {
+        let data = {
+            cookies: cookies
+        };
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            dataType: "json",
+            url: "@Url.Action("Cookie", "TravianUser", new { userName = ViewData["UserName"] })",
+            data: JSON.stringify(data),
+            success: (response) => {
+                $("#successMessage p").text(response.result);
+                $("#successMessage").css("display", "");
+            },
+            error: (xhr, status, response) => {
+                $("#errorMessage p").text(xhr.responseJSON.result);
+                $("#errorMessage").css("display", "");
+            }
+        });
+    }
+    </script>
+}

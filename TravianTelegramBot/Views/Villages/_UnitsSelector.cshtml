@@ -1,0 +1,112 @@
+﻿@model TravianTelegramBot.ViewModels.UnitSelectionViewModel
+
+<style>
+    .checkbox-label > input[type="checkbox"] {
+        display: none;
+    }
+
+    .checkbox-label span.glyphicon {
+        opacity: 0;
+    }
+
+    .checkbox-label.active span.glyphicon {
+        opacity: 1;
+    }
+
+    .checkbox-label {
+        border-style: solid;
+        border-width: 2px;
+        border-color: coral
+    }
+
+    tr {
+        cursor: pointer;
+        vertical-align: middle;
+    }
+</style>
+@if (Model.Units != null)
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>
+                    @(Model.WithQuantity ? "Quantity" : string.Empty)
+                </th>
+                <th>
+                    Name
+                </th>
+                <th class="td-to-hide">
+                    Expenses
+                </th>
+                <th class="td-to-hide">
+                    Speed
+                </th>
+                <th class="td-to-hide">
+                    Capacity
+                </th>
+                <th class="td-to-hide">
+                    Attack
+                </th>
+                <th class="td-to-hide">
+                    Def against Infantry
+                </th>
+                <th class="td-to-hide">
+                    Def against Cavalry
+                </th>
+                <th>
+                    Type
+                </th>
+            </tr>
+        </thead>
+        <tbody id="@Model.Id" class="source">
+            @foreach (var item in Model.Units)
+            {
+                <tr>
+                    @Html.HiddenFor(modelItem => item.Name, new { @class = "name" })
+                    @if (Model.WithQuantity)
+                    {
+                        <td>
+                            <input class="form-control quantity"
+                                   type="number"
+                                   value="@(Model.Selected != null && Model.Selected.ContainsKey(item.Name) ? Model.Selected[item.Name].ToString() : string.Empty)"
+                                   style="max-width:100px;"/>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <label class="checkbox-label btn">
+                                <input type="checkbox" autocomplete="off" class="chb">
+                                <span class="glyphicon glyphicon-ok"></span>
+                            </label>
+                        </td>
+                    }
+                    <td>
+                        <p class="localized-name">@Html.DisplayFor(modelItem => item.LocalizedNameEn)</p>
+                    </td>
+                    <td class="col-to-hide">
+                        @Html.DisplayFor(modelItem => item.Expenses)
+                    </td>
+                    <td class="col-to-hide">
+                        @Html.DisplayFor(modelItem => item.Speed)
+                    </td>
+                    <td class="col-to-hide">
+                        @Html.DisplayFor(modelItem => item.Capacity)
+                    </td>
+                    <td class="td-to-hide">
+                        @Html.DisplayFor(modelItem => item.Attack)
+                    </td>
+                    <td class="td-to-hide">
+                        @Html.DisplayFor(modelItem => item.DeffenceAgainstInfantry)
+                    </td>
+                    <td class="td-to-hide">
+                        @Html.DisplayFor(modelItem => item.DeffenceAgainstCavalry)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UnitType)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -1,0 +1,42 @@
+version: '3.4'
+
+services:
+  mongo:
+    image: mongo:4.0.4
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo:/data/db
+
+  hub:
+    image: selenium/hub:3.141.59-vanadium
+    container_name: hub
+    ports:
+      - "4444:4444"
+
+  firefox:
+    image: selenium/node-firefox:3.141.59-vanadium
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - hub
+    environment:
+      - HUB_HOST=hub
+      - HUB_PORT=4444
+  traviantelegrambot:
+    image: traviantelegrambot:latest #${DOCKER_REGISTRY-}
+    build:
+      context: .
+      dockerfile: TravianTelegramBot/Dockerfile
+    ports:
+      - "8000:80"
+      - "8001:443"
+    env_file:
+      - ./manager-config.env
+    volumes:
+      - //c/Users/user/.aspnet/https:/https/ # sertificate storage
+    depends_on:
+      - mongo
+
+volumes: 
+  mongo:

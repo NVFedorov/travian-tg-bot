@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.779
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravianTelegramBot", "TravianTelegramBot\TravianTelegramBot.csproj", "{8618AD47-2E30-4173-BEDB-7D2643A553C4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TTB.Test", "TTB.Test\TTB.Test.csproj", "{2302FB41-491B-4A05-A87D-6968A5DE85DC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TTB.DAL", "TTB.DAL\TTB.DAL.csproj", "{D1967E18-857A-4710-950D-BBFF28B5C036}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TTB.Common", "TTB.Common\TTB.Common.csproj", "{4003F0DF-F6BE-4554-854D-8C21204722DE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TTB.Gameplay", "TTB.Gameplay\TTB.Gameplay.csproj", "{63C8A73F-03DF-4B0C-826B-52B1D5639112}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{83444950-BF4C-450F-96FB-202DA2AC1B14}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8618AD47-2E30-4173-BEDB-7D2643A553C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8618AD47-2E30-4173-BEDB-7D2643A553C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8618AD47-2E30-4173-BEDB-7D2643A553C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8618AD47-2E30-4173-BEDB-7D2643A553C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2302FB41-491B-4A05-A87D-6968A5DE85DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2302FB41-491B-4A05-A87D-6968A5DE85DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2302FB41-491B-4A05-A87D-6968A5DE85DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2302FB41-491B-4A05-A87D-6968A5DE85DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1967E18-857A-4710-950D-BBFF28B5C036}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1967E18-857A-4710-950D-BBFF28B5C036}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1967E18-857A-4710-950D-BBFF28B5C036}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1967E18-857A-4710-950D-BBFF28B5C036}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4003F0DF-F6BE-4554-854D-8C21204722DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4003F0DF-F6BE-4554-854D-8C21204722DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4003F0DF-F6BE-4554-854D-8C21204722DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4003F0DF-F6BE-4554-854D-8C21204722DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63C8A73F-03DF-4B0C-826B-52B1D5639112}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63C8A73F-03DF-4B0C-826B-52B1D5639112}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63C8A73F-03DF-4B0C-826B-52B1D5639112}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63C8A73F-03DF-4B0C-826B-52B1D5639112}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83444950-BF4C-450F-96FB-202DA2AC1B14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83444950-BF4C-450F-96FB-202DA2AC1B14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83444950-BF4C-450F-96FB-202DA2AC1B14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83444950-BF4C-450F-96FB-202DA2AC1B14}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9013F17A-0016-49B9-B362-58A7D5659519}
+	EndGlobalSection
+EndGlobal

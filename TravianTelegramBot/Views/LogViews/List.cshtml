@@ -1,0 +1,158 @@
+﻿@model IEnumerable<TTB.DAL.Models.LogEntryModel>
+
+@{
+    ViewData["Title"] = "Logs";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<style>
+    .nowrap {
+        white-space: nowrap;
+    }
+
+    #body-wrapper {
+        width: 100%;
+        padding: 0 50px 0 50px;
+    }
+</style>
+<div class="col-md-3" style="margin-bottom:20px;">
+    <select id="levelSelect" class="form-control">
+        <option value="">All</option>
+        @if (ViewData["Selected"] != null && ViewData["Selected"].ToString() == "Information")
+        {
+            <option value="Debug" selected>Debug</option>
+        }
+        else
+        {
+            <option value="Debug">Debug</option>
+        }
+        @if (ViewData["Selected"] != null && ViewData["Selected"].ToString() == "Information")
+        {
+            <option value="Information" selected>Information</option>
+        }
+        else
+        {
+            <option value="Information">Information</option>
+        }
+        @if (ViewData["Selected"] != null && ViewData["Selected"].ToString() == "Error")
+        {
+            <option value="Error" selected>Error</option>
+        }
+        else
+        {
+            <option value="Error">Error</option>
+        }
+        @if (ViewData["Selected"] != null && ViewData["Selected"].ToString() == "Warning")
+        {
+            <option value="Warning" selected>Warning</option>
+        }
+        else
+        {
+            <option value="Warning">Warning</option>
+        }
+    </select>
+</div>
+<div class="clearfix"></div>
+<div class="container" style="padding-top: 5px;">
+    <div id="errorMessage" class="alert alert-danger" style="display:none" onclick="$(this).css('display', 'none')">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Error!</strong><p></p>
+    </div>
+</div>
+<div class="clearfix"></div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Timestamp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Level)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RenderedMessage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Exception)
+            </th>
+        </tr>
+    </thead>
+    <tbody id="log-body"></tbody>
+</table>
+@section Scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function (e) {
+            getData(true);
+            timeout();
+        });
+
+        function timeout() {
+            setTimeout(function () {
+                getData(false);
+                timeout();
+            }, 10000);
+        }
+
+        $("#levelSelect").on("change", function (e) {
+            getData();
+            @*if (!this.value) {
+                window.location.href = '@Url.Action(ViewData["Action"].ToString(), "Log")';
+            } else {
+                window.location.href = '@Url.Action(ViewData["Action"].ToString(), "Log")?level=' + this.value;
+            }*@
+        })
+
+        function getData(load) {
+            let level = $("#levelSelect").children("option:selected").val();
+            let url = '@Url.Action("GetLogs", "Log")?' + (level ? 'level=' + level : '');
+
+            if (load)
+                showLoader();
+
+            $.ajax({
+                type: "GET",
+                url: url,
+                success: function (response) {
+                    updateTable(response);
+                    if (load)
+                        hideLoader();
+                },
+                error: function (xhr, status, response) {
+                    if (xhr && xhr.responseJSON)
+                        $("#errorMessage p").text(xhr.responseJSON.result);
+                    $("#errorMessage").css("display", "");
+                    if (load)
+                        hideLoader();
+                }
+            })
+        }
+
+        function updateTable(data) {
+            let htmlStr = "";
+            data.forEach(item => {
+                htmlStr += `<tr>
+                    <td class="nowrap">
+                        ${item.timestamp}
+                    </td>
+                    <td>
+                        ${item.level}
+                    </td>
+                    <td>
+                        ${item.renderedMessage}
+                    </td>
+                    <td class='td-large'>
+                        ${item.exception}
+                    </td>
+                </tr>`;
+            });
+
+            let tbody = document.createElement("tbody");
+            tbody.id = "log-body";
+            $(tbody).html(htmlStr);
+            $("#log-body").replaceWith(tbody);
+        }
+
+    </script>
+}

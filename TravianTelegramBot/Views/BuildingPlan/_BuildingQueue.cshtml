@@ -1,0 +1,66 @@
+﻿@model IEnumerable<TravianTelegramBot.ViewModels.BuildingPlanStepViewModel>;
+@{
+    var buildings = ViewData["buildings"];
+}
+<style>
+    .table td.fit,
+    .table th.fit {
+        white-space: nowrap;
+        width: 1%;
+    }
+</style>
+<div class="building-plan-table" id="building-plan-table">
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="fit">
+                    Order
+                </th>
+                <th>
+                    Building
+                </th>
+                <th>
+                    Level
+                </th>
+                <th class="fit"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @*@foreach (var row in Model.OrderBy(x => x.Order))
+            {
+                <tr>
+                    <td class="fit">
+                        @row.Order
+                    </td>
+                    <td>
+                        @Html.DropDownList("Building",
+                        new SelectList(Model.Select(x => x.Building), "BuildingId", "LocalizedNameEn", row.Building.BuildingId),
+                        new { @class = "form-control" })
+                    </td>
+                    <td>
+                        @Html.DropDownList("Level",
+                        new SelectList(Enumerable.Range(0,21), row.Level),
+                        new { @class = "form-control" })
+                    </td>
+                    <td class="fit">
+                        <button class="btn btn-danger">X</button>
+                    </td>
+                </tr>
+            }
+            <tr id="add-row">
+                <td class="fit">
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td class="fit">
+                    <button class="btn btn-success">+</button>
+                </td>
+            </tr>*@
+        </tbody>
+    </table>
+    <div class="col-md-1 col-md-offset-11" style="text-align:right; padding-right:7px;">
+        <button type="button" class="btn btn-success" id="addBtn">+</button>
+    </div>
+</div>

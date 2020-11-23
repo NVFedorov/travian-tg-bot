@@ -1,0 +1,233 @@
+﻿@model IEnumerable<TTB.DAL.Models.GameModels.UnitModel>
+@using System.Text.Encodings.Web;
+@{
+    ViewData["Title"] = "Units";
+    var username = ViewData["username"];
+    var villageId = ViewData["villageId"];
+    var selected = (List<string>)ViewData["selected"];
+}
+
+<style>
+    .nowrap {
+        white-space: nowrap;
+    }
+
+    #body-wrapper {
+        width: 100%;
+        padding: 0 50px 0 50px;
+    }
+
+    input[type="checkbox"] {
+        display: none;
+    }
+
+    .checkbox-label span.glyphicon {
+        opacity: 0;
+    }
+
+    .checkbox-label.active span.glyphicon {
+        opacity: 1;
+    }
+
+    .checkbox-label {
+        border-style: solid;
+        border-width: 2px;
+        border-color: coral
+    }
+
+    tr {
+        cursor: pointer;
+        vertical-align: middle;
+    }
+</style>
+
+<h2>@ViewData["Title"]</h2>
+
+&nbsp;
+<div class="row container" style="text-align:right">
+    <button class="btn btn-info" onclick="save()">Save</button>
+    <a asp-action="Index" asp-route-username="@username" class="btn btn-warning">Back</a>
+</div>
+    &nbsp;
+<div id="successMessage" class="alert alert-success" style="display:none" onclick="$(this).css('display', 'none')">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Success!</strong><p></p>
+</div>
+<div id="errorMessage" class="alert alert-danger" style="display:none" onclick="$(this).css('display', 'none')">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Error!</strong><p></p>
+</div>
+<div class="clear-fix"></div>
+    &nbsp;
+<div class="row">
+    <div class="col-sm-8">
+        <h4>All units</h4>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>
+                        Name
+                    </th>
+                    <th class="td-to-hide">
+                        @Html.DisplayNameFor(model => model.Expenses)
+                    </th>
+                    <th class="td-to-hide">
+                        @Html.DisplayNameFor(model => model.Speed)
+                    </th>
+                    <th class="td-to-hide">
+                        @Html.DisplayNameFor(model => model.Capacity)
+                    </th>
+                    <th class="td-to-hide">
+                        @Html.DisplayNameFor(model => model.Attack)
+                    </th>
+                    <th class="td-to-hide">
+                        Def against Infantry
+                    </th>
+                    <th class="td-to-hide">
+                        Def against Cavalry)
+                    </th>
+                    <th>
+                        Type
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="source">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <label class="checkbox-label btn">
+                                <input type="checkbox" autocomplete="off" class="chb">
+                                <span class="glyphicon glyphicon-ok"></span>
+                            </label>
+                            @Html.HiddenFor(modelItem => item.Name, new { @class = "name" })
+                        </td>
+                        <td>
+                            <p class="localized-name">@Html.DisplayFor(modelItem => item.LocalizedNameEn)</p>
+                        </td>
+                        <td class="col-to-hide">
+                            @Html.DisplayFor(modelItem => item.Expenses)
+                        </td>
+                        <td class="col-to-hide">
+                            @Html.DisplayFor(modelItem => item.Speed)
+                        </td>
+                        <td class="col-to-hide">
+                            @Html.DisplayFor(modelItem => item.Capacity)
+                        </td>
+                        <td class="td-to-hide">
+                            @Html.DisplayFor(modelItem => item.Attack)
+                        </td>
+                        <td class="td-to-hide">
+                            @Html.DisplayFor(modelItem => item.DeffenceAgainstInfantry)
+                        </td>
+                        <td class="td-to-hide">
+                            @Html.DisplayFor(modelItem => item.DeffenceAgainstCavalry)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UnitType)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-sm-4">
+        <h4>Selected units</h4>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody id="dest"></tbody>
+        </table>
+    </div>
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        const names = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(selected));
+
+        $(document).ready(function () {
+            names.forEach(name => {
+                let tr = $('#source').find(`input[value='${name}']`).closest('tr');
+                $(tr).trigger('click');
+            });
+        });
+
+        $("#source tr").on("click", function (evt) {
+            evt.stopPropagation();
+            evt.preventDefault();
+            let chb = $(this).find(".chb");
+            $(chb).prop('checked', $(chb).prop('checked') !== true);
+            let name = $(this).find(".name").val();
+            if ($(chb).prop('checked') === true) {
+                $(chb).parent().addClass("active");
+                let localized = $(this).find(".localized-name").text();
+                addRow(name, localized);
+            } else {
+                $(chb).parent().removeClass("active");
+                let tr = $('#dest').find(`input[value='${name}']`).closest('tr');
+                tr.remove();
+            }
+        });
+
+        function destTableClick(evt) {
+            evt.stopPropagation();
+            evt.preventDefault();
+            let name = $(this).find("input[type='hidden']").val();
+            let tr = $(this).closest('tr');
+            tr.remove();
+            let trChb = $('#source').find(`input[value='${name}']`).closest('tr');
+            let chb = $(trChb).find(".chb");
+            $(chb).prop('checked', false);
+            $(chb).parent().removeClass("active");
+        };
+
+        function save() {
+            const names = [];
+            $('#dest').find(`input[type='hidden']`).each(function (i, obj) {
+                names.push($(obj).val());
+            });
+
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                dataType: "json",
+                url: "@Url.Action("UpdatePreferences", "Villages", new { villageId })",
+                data: JSON.stringify(names),
+                success: (response) => {
+                    $("#successMessage p").text(response.result);
+                    $("#successMessage").css("display", "");
+                },
+                error: (xhr, status, resp) => {
+                    $("#errorMessage p").text(xhr.responseJSON.result);
+                    $("#errorMessage").css("display", "");
+                }
+            })
+        }
+
+        function addRow(name, localizedName) {
+            var tr = document.createElement("tr");
+            tdChb = document.createElement("td");
+            $(tdChb).append('<label class="checkbox-label btn active"><input type="checkbox" autocomplete="off" class="chb" ><span class="glyphicon glyphicon-ok"></span></label >');
+            hidden = document.createElement("input");
+            hidden.type = "hidden";
+            hidden.value = name;
+            hidden.class = "name-hidden";
+            tdChb.appendChild(hidden);
+
+            tdVal = document.createElement("td");
+            p = document.createElement("p");
+            $(p).text(localizedName);
+            tdVal.appendChild(p);
+
+            tr.onclick = destTableClick;
+            tr.appendChild(tdChb);
+            tr.appendChild(tdVal);
+
+            $("#dest").append(tr);
+        }
+    </script>
+}

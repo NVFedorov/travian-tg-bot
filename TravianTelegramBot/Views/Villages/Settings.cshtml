@@ -1,0 +1,312 @@
+﻿@model TravianTelegramBot.ViewModels.VillageViewModel
+@using TTB.DAL.Models;
+@using TTB.DAL.Models.GameModels;
+@using TTB.Common.Extensions;
+@{
+    ViewData["Title"] = "Settings";
+    var username = ViewData["username"];
+    var units = (IEnumerable<UnitModel>)ViewData["units"];
+    var trainUnits = ((IEnumerable<string>)ViewData["trainUnits"])?.ToDictionary(x => x, x => 1);
+    var spamUnits = (IDictionary<string, int>)ViewData["spamUnits"];
+    var spamTableId = Guid.NewGuid();
+    var trainTableId = Guid.NewGuid();
+    var timezone = ViewData["timeZone"].ToString();
+    var buildingPlans = ((IEnumerable<BuildingPlanModel>)ViewData["buildingPlans"]).ToList();
+    var select = new SelectList(buildingPlans, nameof(BuildingPlanModel._id), nameof(BuildingPlanModel.Name), buildingPlans.FirstOrDefault(x => x._id == Model.BuildingPlanId));
+}
+
+<style>
+    .dot {
+        height: 20px;
+        width: 20px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+        margin: auto 10px auto auto;
+        padding-bottom: 2px;
+    }
+
+    .resources-display {
+        background-color: #eee;
+        border-radius: 5px;
+        border-color: #333333;
+        border-style: solid;
+        border-width: 1px;
+        width: 200px;
+        text-align: center;
+        font-weight: unset;
+    }
+
+    .resouces-label {
+        font-weight: bold;
+    }
+</style>
+
+<div class="row container">
+    <div class="col-sm-6">
+        <span class="dot" style="@(Model.IsUnderAttack ? "background-color: red;" : string.Empty)"></span>
+        <h2 style="display: inline-block;">@Model.VillageName (@Model.VillageId.Replace("&", "|"))</h2>
+    </div>
+    <div class="col-sm-6" style="text-align:right; margin-top:20px;">
+        <button class="btn btn-info" onclick="save()">Save</button>
+        <a asp-action="Index" asp-route-username="@username" class="btn btn-warning">Back</a>
+    </div>
+</div>
+    &nbsp;
+<div id="successMessage" class="alert alert-success" style="display:none" onclick="$(this).css('display', 'none')">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Success!</strong><p></p>
+</div>
+<div id="errorMessage" class="alert alert-danger" style="display:none" onclick="$(this).css('display', 'none')">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Error!</strong><p></p>
+</div>
+<div class="clear-fix"></div>
+    &nbsp;
+<hr />
+<h4>Resources</h4>
+    &nbsp;
+<div class="container">
+    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 col-md-6 col-sm-6 col-xs-12">
+        <p class="resouces-label">Lumber</p>
+        <label class="resources-display">
+            @(Model.ResourcesProduction?.Lumber.ToString() ?? "NA") / @(Model.Resources?.Lumber.ToString() ?? "NA") / @(Model.Warehourse.ToString() ?? "NA")
+        </label>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+        <p class="resouces-label">Clay</p>
+        <label class="resources-display">
+            @(Model.ResourcesProduction?.Clay.ToString() ?? "NA") / @(Model.Resources?.Clay.ToString() ?? "NA") / @(Model.Warehourse.ToString() ?? "NA")
+        </label>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+        <p class="resouces-label">Iron</p>
+        <label class="resources-display">
+            @(Model.ResourcesProduction?.Iron.ToString() ?? "NA") / @(Model.Resources?.Iron.ToString() ?? "NA") / @(Model.Warehourse.ToString() ?? "NA")
+        </label>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+        <p class="resouces-label">Crop</p>
+        <label class="resources-display">
+            @(Model.ResourcesProduction?.Crop.ToString() ?? "NA") / @(Model.Resources?.Crop.ToString() ?? "NA") / @(Model.Granary.ToString() ?? "NA")
+        </label>
+    </div>
+</div>
+<div class="clearfix" style="margin-bottom: 40px;"></div>
+<h4>Types</h4>
+<div class="container col-lg-offset-3 col-lg-6">
+    <ul class="list-group">
+        <li class="list-group-item">
+            Offence
+            <div class="material-switch pull-right">
+                <input id="offence-switch" type="checkbox" @(Model.IsOffence ? "checked" : "") />
+                <label for="offence-switch" class="label-primary"></label>
+            </div>
+        </li>
+        <li class="list-group-item">
+            Defence
+            <div class="material-switch pull-right">
+                <input id="defence-switch" type="checkbox" @(Model.IsDeffence ? "checked" : "") />
+                <label for="defence-switch" class="label-primary"></label>
+            </div>
+        </li>
+        <li class="list-group-item">
+            Resources
+            <div class="material-switch pull-right">
+                <input id="resources-switch" type="checkbox" @(Model.IsResource ? "checked" : "") />
+                <label for="resources-switch" class="label-primary"></label>
+            </div>
+        </li>
+        <li class="list-group-item">
+            Scan
+            <div class="material-switch pull-right">
+                <input id="scan-switch" type="checkbox" @(Model.IsScan ? "checked" : "") />
+                <label for="scan-switch" class="label-primary"></label>
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="clearfix" style="margin-bottom: 40px;"></div>
+<h4>Features</h4>
+<div class="container col-lg-offset-3 col-lg-6">
+    <ul class="list-group">
+        <li class="list-group-item">
+            Save Troops Feature
+            <div class="material-switch pull-right">
+                <input id="saveTroopsFeature-switch" type="checkbox" @(Model.IsSaveTroopsFeatureOn ? "checked" : "") />
+                <label for="saveTroopsFeature-switch" class="label-primary"></label>
+            </div>
+        </li>
+        <li class="list-group-item">
+            Save Resources Feature
+            <div class="material-switch pull-right">
+                <input id="saveResourcesFeature-switch" type="checkbox" @(Model.IsSaveResourcesFeatureOn ? "checked" : "") />
+                <label for="saveResourcesFeature-switch" class="label-primary"></label>
+            </div>
+        </li>
+        <li class="list-group-item">
+            Spam Feature
+            <div class="material-switch pull-right">
+                <input id="spamFeature-switch" type="checkbox" @(Model.IsSpamFeatureOn ? "checked" : "") />
+                <label for="spamFeature-switch" class="label-primary"></label>
+            </div>
+        </li>
+        <li class="list-group-item">
+            Build Feature
+            <div class="material-switch pull-right">
+                <input id="buildFeature-switch" type="checkbox" @(Model.IsBuildFeatureOn ? "checked" : "") />
+                <label for="buildFeature-switch" class="label-primary"></label>
+            </div>
+            <div id="build-feature-details" class="container-fluid" style="display: @(Model.IsBuildFeatureOn ? "" : "none;")">
+                <div class="form-group" style="padding-top: 5px;">
+                    <label asp-for="BuildingPlanId" class="control-label">Building Plan</label>
+                    @Html.DropDownList(nameof(TravianTelegramBot.ViewModels.VillageViewModel.BuildingPlanId),
+                        select,
+                        "Select Building Plan",
+                        new { @class = "form-control" })
+                    <span asp-validation-for="BuildingPlanId" class="text-danger"></span>
+                </div>
+                @if (Model.IsWaitingForResources)
+                {
+                    <div class="col-md-1">
+                        <span class="dot" style="@(Model.IsWaitingForResources ? "background-color: #5cb85c;" : string.Empty)width:10px;height:10px" />
+                    </div>
+                    <div class="col-md-11">
+                        Resources will come at: @Model.NextBuildingPlanExecutionTime?.ToDisplayStringApplyTimeZone(timezone)
+                    </div>
+                }
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="clearfix" style="margin-bottom: 20px;"></div>
+<div class="container">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#spam-units">Spam Units</a></li>
+        <li><a data-toggle="tab" href="#train-units">Train Units</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="spam-units" class="tab-pane fade in active">
+            &nbsp;
+            <h4>Spam Units</h4>
+            &nbsp;
+            <div class="container-fluid">
+                @await Html.PartialAsync("_UnitsSelector", new TravianTelegramBot.ViewModels.UnitSelectionViewModel
+                   {
+                       Id = spamTableId,
+                       Selected = spamUnits,
+                       Units = units,
+                       WithQuantity = true
+                   })
+            </div>
+        </div>
+        <div id="train-units" class="tab-pane fade">
+            &nbsp;
+            <h4>Train Units</h4>
+            &nbsp;
+            <div class="container-fluid">
+                @await Html.PartialAsync("_UnitsSelector", new TravianTelegramBot.ViewModels.UnitSelectionViewModel
+                   {
+                       Id = trainTableId,
+                       Selected = trainUnits,
+                       Units = units,
+                       WithQuantity = false
+                   })
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script type="text/javascript">
+    const selectedTrainUnits = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.PreferableUnits));
+    const selectedSpamUnits = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.SpamUnits));
+
+    $(document).ready(function () {
+        selectedTrainUnits.forEach(name => {
+            let tr = $('#@trainTableId').find(`input[value='${name}']`).closest('tr');
+            $(tr).trigger('click');
+        });
+
+        for (var key in selectedSpamUnits) {
+            if (Object.prototype.hasOwnProperty.call(selectedSpamUnits, key)) {
+                let tr = $('#@spamTableId').find(`input[value='${key}']`).closest('tr');
+                $(tr).find("input.quantity").val(selectedSpamUnits[key]);
+            }
+        }
+
+        $('#buildFeature-switch').change(function () {
+            if (this.checked) {
+                $("#build-feature-details").css("display", "");
+            } else {
+                $("#build-feature-details").css("display", "none");
+            }
+        });
+    });
+
+    $("#@trainTableId tr").on("click", function (evt) {
+            evt.stopPropagation();
+            evt.preventDefault();
+            let chb = $(this).find(".chb");
+            $(chb).prop('checked', $(chb).prop('checked') !== true);
+            let name = $(this).find(".name").val();
+            if ($(chb).prop('checked') === true) {
+                $(chb).parent().addClass("active");
+            } else {
+                $(chb).parent().removeClass("active");
+            }
+    });
+
+    function save() {
+        showLoader();
+        let trainTableRows = $("#@trainTableId input:checked");
+        const trainNames = [];
+        $(trainTableRows).each((i, obj) => {
+            let tr = $(obj).closest("tr");
+            let name = $(tr).find("input.name").val();
+            trainNames.push(name);
+        });
+
+        const spam = {};
+        $("#@spamTableId tr").each((i, tr) => {
+            let name = $(tr).find("input.name").val();
+            let quantity = $(tr).find("input.quantity").val() - 0;
+            spam[name] = quantity;
+        });
+
+        let updateModel = {
+            playerName: '@Model.PlayerName',
+            villageId: '@Html.Raw(Model.VillageId)',
+            villageName: '@Model.VillageName',
+            isSaveTroopsFeatureOn: $("#saveTroopsFeature-switch").prop('checked') === true,
+            isSaveResourcesFeatureOn: $("#saveResourcesFeature-switch").prop('checked') === true,
+            isSpamFeatureOn: $("#spamFeature-switch").prop('checked') === true,
+            isBuildFeatureOn: $("#buildFeature-switch").prop('checked') === true,
+            isOffence: $("#offence-switch").prop('checked') === true,
+            isDeffence: $("#defence-switch").prop('checked') === true,
+            isResource: $("#resources-switch").prop('checked') === true,
+            isScan: $("#scan-switch").prop('checked') === true,
+            preferableUnits: trainNames,
+            spamUnits: spam,
+            buildingPlanId: $("select[name=BuildingPlanId]").val()
+        }
+
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            dataType: "json",
+            url: "@Url.Action("UpdateFeatures", "Villages")",
+            data: JSON.stringify(updateModel),
+            success: (response) => {
+                $("#successMessage p").text(response.result);
+                $("#successMessage").css("display", "");
+                hideLoader();
+            },
+            error: (xhr, status, resp) => {
+                $("#errorMessage p").text(xhr.responseJSON.result);
+                $("#errorMessage").css("display", "");
+                hideLoader();
+            }
+        })
+    }
+    </script>
+}

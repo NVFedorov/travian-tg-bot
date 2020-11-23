@@ -1,0 +1,150 @@
+﻿@model IEnumerable<TTB.DAL.Models.GameModels.UnitModel>
+
+@{
+    ViewData["Title"] = "Units List";
+}
+
+<style>
+    .nowrap {
+        white-space: nowrap;
+    }
+
+    #body-wrapper {
+        width: 100%;
+        padding: 0 50px 0 50px;
+    }
+</style>
+
+<h1>@ViewData["Title"]</h1>
+<h4>Update Units</h4>
+<div class="row">
+    <div class="container-fluid col-xs-4">
+        <form method="post" enctype="multipart/form-data" asp-controller="KnowledgeBase" asp-action="UploadUnits">
+            <div class="form-group container-fluid">
+                <div class="col-xs-3">
+                    <p>Units JSON file:</p>
+                </div>
+                <div class="col-xs-6">
+                    <input type="file" name="formFile" class="form-control" />
+                </div>
+                <div class="col-xs-3">
+                    <input type="submit" value="Upload" class="btn btn-info" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-xs-4 pull-right" style="text-align:right">
+        <a asp-action="List" asp-controller="TravianUser" class="btn btn-warning">Back</a>
+    </div>
+</div>
+<div class="clearfix"></div>
+@if (ViewData["Error"] != null)
+{
+    <div class="container" style="padding-top: 5px;">
+        <div id="errorMessage" class="alert alert-danger">
+            <strong>Error!</strong><p>@ViewData["Error"]</p>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th class="col-to-hide">
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LocalizedNameEn)
+            </th>
+            <th class="col-to-hide">
+                @Html.DisplayNameFor(model => model.LocalizedNameRu)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tribe)
+            </th>
+            <th class="col-to-hide">
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th class="col-to-hide">
+                @Html.DisplayNameFor(model => model.Expenses)
+            </th>
+            <th class="col-to-hide">
+                @Html.DisplayNameFor(model => model.Speed)
+            </th>
+            <th class="col-to-hide">
+                @Html.DisplayNameFor(model => model.Capacity)
+            </th>
+            <th class="col-to-hide">
+                @Html.DisplayNameFor(model => model.Attack)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeffenceAgainstInfantry)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeffenceAgainstCavalry)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitType)
+            </th>
+            <th class="col-to-hide">
+                @Html.DisplayNameFor(model => model.ResearchTime)
+            </th>
+            <th class="col-to-hide">
+                @Html.DisplayNameFor(model => model.TrainingTime)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="col-to-hide">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LocalizedNameEn)
+                    </td>
+                    <td class="col-to-hide">
+                        @Html.DisplayFor(modelItem => item.LocalizedNameRu)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tribe)
+                    </td>
+                    <td class="col-to-hide">
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td class="col-to-hide">
+                        @Html.DisplayFor(modelItem => item.Expenses)
+                    </td>
+                    <td class="col-to-hide">
+                        @Html.DisplayFor(modelItem => item.Speed)
+                    </td>
+                    <td class="col-to-hide">
+                        @Html.DisplayFor(modelItem => item.Capacity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Attack)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DeffenceAgainstInfantry)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DeffenceAgainstCavalry)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UnitType)
+                    </td>
+                    <td class="col-to-hide">
+                        @Html.DisplayFor(modelItem => item.ResearchTime)
+                    </td>
+                    <td class="col-to-hide">
+                        @Html.DisplayFor(modelItem => item.TrainingTime)
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

@@ -1,0 +1,96 @@
+﻿@model TTB.DAL.Models.PlayerModels.PlayerDataModel
+@using TTB.DAL.Models.GameModels.Enums;
+
+@{
+    ViewData["Title"] = "Player Data";
+}
+
+<h3>Player Data</h3>
+<hr />
+@if (Model == null)
+{
+    <div class="alert alert-danger">
+        <strong>Error!</strong><p>@(ViewBag.ErrorMessage ?? "Unexpected error occurred.")"</p>
+    </div>
+}
+else
+{
+    <div class="row container">
+        <div class="col-md-11" style="text-align:right">
+            <div id="successMessage" class="alert alert-success" style="display:none" onclick="$(this).css('display', 'none')">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Success!</strong><p></p>
+            </div>
+            <div id="errorMessage" class="alert alert-danger" style="display:none" onclick="$(this).css('display', 'none')">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Error!</strong><p></p>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row container">
+        <div class="col-md-12" style="text-align:right">
+            <a asp-action="Index" asp-controller="Villages" asp-route-username="@Model.UserName" class="btn btn-info">Villages</a>
+            @if (ViewBag.IsActive ?? false)
+            {
+                <button class="btn btn-primary" onclick="runUpdate()">Run Update</button>
+            }
+            <a asp-action="List" asp-controller="TravianUser" class="btn btn-warning">Back</a>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Update">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="UserName" class="control-label"></label>
+                    <input asp-for="UserName" class="form-control" readonly="readonly" />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Status" class="control-label"></label>
+                    <input asp-for="Status" class="form-control" readonly="readonly" />
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Tribe" class="control-label"></label>
+                    <select asp-for="Tribe" asp-items="Html.GetEnumSelectList<Tribe>()" class="form-control"></select>
+                    <span asp-validation-for="Tribe" class="text-danger" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Alliance" class="control-label"></label>
+                    <input asp-for="Alliance" class="form-control" readonly="readonly" />
+                    <span asp-validation-for="Alliance" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TimeZone" class="control-label"></label>
+                    <input asp-for="TimeZone" class="form-control" />
+                    <span asp-validation-for="TimeZone" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Update" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    function runUpdate() {
+        showLoader();
+        $.ajax({
+            type: "GET",
+            url: `/PlayerData/RunUpdate?userName=@Model.UserName`,
+            success: (response) => {
+                $("#successMessage p").text(response.message);
+                $("#successMessage").css("display", "");
+                hideLoader();
+            },
+            error: (xhr, status, resp) => {
+                $("#errorMessage p").text(xhr.responseJSON.message);
+                $("#errorMessage").css("display", "");
+                hideLoader();
+            }
+        })
+    }
+</script>

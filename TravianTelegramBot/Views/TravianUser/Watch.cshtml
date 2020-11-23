@@ -1,0 +1,44 @@
+﻿@model TravianTelegramBot.WebApiResponse.WatchResponse
+
+@{
+    ViewData["Title"] = "Scan";
+}
+
+<h2>Scan Result</h2>
+
+<div class="form-group">
+    <hr />
+    <div class="row">
+        <div class="col-sm-2">
+            <b>
+                @Html.DisplayNameFor(model => model.Message)
+            </b>
+        </div>
+        <div class="col-sm-10">
+            @Html.DisplayFor(model => model.Message)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <b>
+                @Html.DisplayNameFor(model => model.Error)
+            </b>
+        </div>
+        <div class="col-sm-10">
+            @Html.DisplayFor(model => model.Error)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <b>
+                @Html.DisplayNameFor(model => model.Status)
+            </b>
+        </div>
+        <div class="col-sm-10">
+            @Html.DisplayFor(model => model.Status)
+        </div>
+    </div>
+</div>
+<div>
+    <a asp-action="List" class="btn btn-warning">Back to List</a>
+</div>

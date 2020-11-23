@@ -1,0 +1,67 @@
+﻿@model IEnumerable<TravianTelegramBot.ViewModels.JobInfoViewModel>
+
+    @{
+        ViewData["Title"] = $"Running jobs for player {ViewData["player"]}";
+    }
+
+    <h2>@ViewData["Title"]</h2>
+    <hr />
+    <div class="row container">
+        <div class="col-md-12" style="text-align:right">
+            <a asp-action="List" asp-controller="TravianUser" class="btn btn-warning">Back</a>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    @if (Model == null)
+    {
+        <div class="alert alert-danger">
+            <strong>Error!</strong><p>@(ViewBag.ErrorMessage ?? "Unexpected error occurred.")</p>
+        </div>
+        <div class="clearfix"></div>
+    }
+    else
+    {
+        if (ViewBag.ErrorMessage != null)
+        {
+            <div class="alert alert-danger">
+                <strong>Error!</strong><p>@(ViewBag.ErrorMessage ?? "Unexpected error occurred.")</p>
+            </div>
+            <div class="clearfix"></div>
+        }
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Group)
+                    </th>
+                    <th>
+                        Next Execution Time
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Group)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NextExecutionTime)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Cancel", "CancelJob", new { name = item.Name, group = item.Group }, new { @class = "btn btn-danger" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }

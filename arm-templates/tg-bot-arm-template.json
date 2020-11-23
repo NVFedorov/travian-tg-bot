@@ -1,0 +1,167 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "sites_travian_bot_name": {
+            "defaultValue": "travian-bot",
+            "type": "String"
+        },
+        "serverfarms_ASP_tgbot_8320_name": {
+            "defaultValue": "ASP-tgbot-8320",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Web/serverfarms",
+            "apiVersion": "2018-02-01",
+            "name": "[parameters('serverfarms_ASP_tgbot_8320_name')]",
+            "location": "West Europe",
+            "sku": {
+                "name": "B2",
+                "tier": "Basic",
+                "size": "B2",
+                "family": "B",
+                "capacity": 1
+            },
+            "kind": "linux",
+            "properties": {
+                "perSiteScaling": false,
+                "maximumElasticWorkerCount": 1,
+                "isSpot": false,
+                "freeOfferExpirationTime": "2019-12-22T08:21:00",
+                "reserved": true,
+                "isXenon": false,
+                "hyperV": false,
+                "targetWorkerCount": 0,
+                "targetWorkerSizeId": 0
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "2018-11-01",
+            "name": "[parameters('sites_travian_bot_name')]",
+            "location": "West Europe",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_ASP_tgbot_8320_name'))]"
+            ],
+            "kind": "app,linux,container",
+            "properties": {
+                "enabled": true,
+                "hostNameSslStates": [
+                    {
+                        "name": "[concat(parameters('sites_travian_bot_name'), '.azurewebsites.net')]",
+                        "sslState": "Disabled",
+                        "hostType": "Standard"
+                    },
+                    {
+                        "name": "[concat(parameters('sites_travian_bot_name'), '.scm.azurewebsites.net')]",
+                        "sslState": "Disabled",
+                        "hostType": "Repository"
+                    }
+                ],
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_ASP_tgbot_8320_name'))]",
+                "reserved": true,
+                "isXenon": false,
+                "hyperV": false,
+                "siteConfig": {},
+                "scmSiteAlsoStopped": false,
+                "clientAffinityEnabled": false,
+                "clientCertEnabled": false,
+                "hostNamesDisabled": false,
+                "containerSize": 0,
+                "dailyMemoryTimeQuota": 0,
+                "httpsOnly": true,
+                "redundancyMode": "None"
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/config",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_travian_bot_name'), '/web')]",
+            "location": "West Europe",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_travian_bot_name'))]"
+            ],
+            "properties": {
+                "numberOfWorkers": 1,
+                "defaultDocuments": [
+                    "Default.htm",
+                    "Default.html",
+                    "Default.asp",
+                    "index.htm",
+                    "index.html",
+                    "iisstart.htm",
+                    "default.aspx",
+                    "index.php",
+                    "hostingstart.html"
+                ],
+                "netFrameworkVersion": "v4.0",
+                "linuxFxVersion": "COMPOSE|dmVyc2lvbjogJzMuNCcKCnNlcnZpY2VzOgogIG1vbmdvOgogICAgaW1hZ2U6IG1vbmdvOjQuMC40CiAgICBleHBvc2U6CiAgICAgICAgLSAiMjcwMTciCiAgICB2b2x1bWVzOgogICAgICAtIG1vbmdvOi9kYXRhL2RiCgogIGh1YjoKICAgIGltYWdlOiBzZWxlbml1bS9odWI6My4xNDEuNTktdmFuYWRpdW0KICAgIGNvbnRhaW5lcl9uYW1lOiBodWIKICAgIGV4cG9zZToKICAgICAgLSAiNDQ0NCIKCiAgZmlyZWZveDoKICAgIGltYWdlOiBzZWxlbml1bS9ub2RlLWZpcmVmb3g6My4xNDEuNTktdmFuYWRpdW0KICAgIGRlcGVuZHNfb246CiAgICAgIC0gaHViCiAgICBlbnZpcm9ubWVudDoKICAgICAgLSBIVUJfSE9TVD1odWIKICAgICAgLSBIVUJfUE9SVD00NDQ0CiAgd2ViOgogICAgaW1hZ2U6IHVuZXhwZWN0ZWRib3QvdHJhdmlhbi10Zy1ib3Q6bGF0ZXN0CiAgICByZXN0YXJ0OiBhbHdheXMKICAgIHBvcnRzOgogICAgICAgIC0gIjQ0Mzo0NDMiCiAgICAgICAgLSAiODA6ODAiCiAgICBlbnZpcm9ubWVudDoKICAgICAgQVNQTkVUQ09SRV9FTlZJUk9OTUVOVDogUHJvZHVjdGlvbgogICAgICBEYXRhYmFzZVNldHRpbmdzX19Db25uZWN0aW9uU3RyaW5nOiBtb25nb2RiOi8vbW9uZ286MjcwMTcKICAgICAgRGF0YWJhc2VTZXR0aW5nc19fRGF0YWJhc2VOYW1lOiB0cmF2aWFuCiAgICAgIFdlYkRyaXZlclNldHRpbmdzX19SZW1vdGVEcml2ZXJVcmw6IGh0dHA6Ly9odWI6NDQ0NC93ZC9odWIKICAgICAgU2VjcmV0U2V0dGluZ3NfX1JlZ2lzdHJhdGlvbkRlZmF1bHRTZWNyZXQ6IGRlZmF1bHRzZWNyZXRfMTIzCiAgICAgIFNlY3JldFNldHRpbmdzX19BZG1pbkRlZmF1bHRTZWNyZXQ6IGlhbWFkbWluCiAgICAgIEJvdENvbmZpZ3VyYXRpb25fX0JvdFRva2VuOiA3MDc5NjQ1NjQ6QUFFMmNVU0lsNGVqSmg0THhUcWpPbHh0MWFZSThHdUMtTTAKICAgICAgQm90Q29uZmlndXJhdGlvbl9fU29ja3M1SG9zdDogCiAgICAgIEJvdENvbmZpZ3VyYXRpb25fX1NvY2tzNVBvcnQ6IDEwODAKICAgIGRlcGVuZHNfb246CiAgICAgIC0gbW9uZ28KCnZvbHVtZXM6IAogIG1vbmdvOg==",
+                "requestTracingEnabled": false,
+                "remoteDebuggingEnabled": false,
+                "remoteDebuggingVersion": "VS2019",
+                "httpLoggingEnabled": true,
+                "logsDirectorySizeLimit": 35,
+                "detailedErrorLoggingEnabled": false,
+                "publishingUsername": "$travian-bot",
+                "azureStorageAccounts": {},
+                "scmType": "None",
+                "use32BitWorkerProcess": true,
+                "webSocketsEnabled": false,
+                "alwaysOn": true,
+                "managedPipelineMode": "Integrated",
+                "virtualApplications": [
+                    {
+                        "virtualPath": "/",
+                        "physicalPath": "site\\wwwroot",
+                        "preloadEnabled": true
+                    }
+                ],
+                "loadBalancing": "LeastRequests",
+                "experiments": {
+                    "rampUpRules": []
+                },
+                "autoHealEnabled": false,
+                "localMySqlEnabled": false,
+                "ipSecurityRestrictions": [
+                    {
+                        "ipAddress": "Any",
+                        "action": "Allow",
+                        "priority": 1,
+                        "name": "Allow all",
+                        "description": "Allow all access"
+                    }
+                ],
+                "scmIpSecurityRestrictions": [
+                    {
+                        "ipAddress": "Any",
+                        "action": "Allow",
+                        "priority": 1,
+                        "name": "Allow all",
+                        "description": "Allow all access"
+                    }
+                ],
+                "scmIpSecurityRestrictionsUseMain": false,
+                "http20Enabled": false,
+                "minTlsVersion": "1.2",
+                "ftpsState": "AllAllowed",
+                "reservedInstanceCount": 0
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/hostNameBindings",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_travian_bot_name'), '/', parameters('sites_travian_bot_name'), '.azurewebsites.net')]",
+            "location": "West Europe",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_travian_bot_name'))]"
+            ],
+            "properties": {
+                "siteName": "travian-bot",
+                "hostNameType": "Verified"
+            }
+        }
+    ]
+}

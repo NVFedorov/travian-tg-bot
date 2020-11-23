@@ -1,0 +1,837 @@
+﻿[
+  {
+    "name": "trader",
+    "localizedNameEn": "",
+    "localizedNameRu": "",
+    "description": null,
+    "tribe": "ROMAN",
+    "speed": 16
+  },
+  {
+    "name": "legionnaire",
+    "localizedNameEn": "Legionnaire",
+    "localizedNameRu": "Легионер",
+    "tribe": "ROMAN",
+    "expenses": 1,
+    "speed": 6,
+    "capacity": 40,
+    "attack": 40,
+    "deffenceAgainstInfantry": 35,
+    "deffenceAgainstCavalry": 50,
+    "unitType": "FOOT_TROOPS",
+    "trainingCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchTime": "00:00:00",
+    "trainingTime": "00:00:00"
+  },
+  {
+    "name": "praetorian",
+    "localizedNameEn": "Praetorian",
+    "localizedNameRu": "Преторианец",
+    "tribe": "ROMAN",
+    "expenses": 1,
+    "speed": 5,
+    "capacity": 20,
+    "attack": 30,
+    "deffenceAgainstInfantry": 65,
+    "deffenceAgainstCavalry": 35,
+    "unitType": "FOOT_TROOPS",
+    "trainingCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchTime": "00:00:00",
+    "trainingTime": "00:00:00"
+  },
+  {
+    "name": "imperian",
+    "localizedNameEn": "Imperian",
+    "localizedNameRu": "Империанец",
+    "tribe": "ROMAN",
+    "expenses": 1,
+    "speed": 7,
+    "capacity": 50,
+    "attack": 70,
+    "deffenceAgainstInfantry": 40,
+    "deffenceAgainstCavalry": 25,
+    "unitType": "FOOT_TROOPS",
+    "trainingCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchTime": "00:00:00",
+    "trainingTime": "00:00:00"
+  },
+  {
+    "name": "equites_legati",
+    "localizedNameEn": "Equites Legati",
+    "localizedNameRu": "Конный разведчик",
+    "tribe": "ROMAN",
+    "expenses": 2,
+    "speed": 16,
+    "capacity": 0,
+    "attack": 0,
+    "deffenceAgainstInfantry": 20,
+    "deffenceAgainstCavalry": 10,
+    "unitType": "SCOUT",
+    "trainingCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchTime": "00:00:00",
+    "trainingTime": "00:00:00"
+  },
+  {
+    "name": "equites_imperatoris",
+    "localizedNameEn": "Equites Imperatoris",
+    "localizedNameRu": "Конница императора",
+    "tribe": "ROMAN",
+    "expenses": 3,
+    "speed": 14,
+    "capacity": 100,
+    "attack": 120,
+    "deffenceAgainstInfantry": 65,
+    "deffenceAgainstCavalry": 50,
+    "unitType": "CAVALRY",
+    "trainingCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchTime": "00:00:00",
+    "trainingTime": "00:00:00"
+  },
+  {
+    "name": "equites_caesaris",
+    "localizedNameEn": "Equites Caesaris",
+    "localizedNameRu": "Конница Цезаря",
+    "tribe": "ROMAN",
+    "expenses": 4,
+    "speed": 10,
+    "capacity": 70,
+    "attack": 180,
+    "deffenceAgainstInfantry": 80,
+    "deffenceAgainstCavalry": 105,
+    "unitType": "CAVALRY",
+    "trainingCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchTime": "00:00:00",
+    "trainingTime": "00:00:00"
+  },
+  {
+    "name": "battering_ram",
+    "localizedNameEn": "Battering ram",
+    "localizedNameRu": "Таран",
+    "tribe": "ROMAN",
+    "expenses": 3,
+    "speed": 4,
+    "capacity": 0,
+    "attack": 60,
+    "deffenceAgainstInfantry": 30,
+    "deffenceAgainstCavalry": 75,
+    "unitType": "WAR_MACHINE",
+    "trainingCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchTime": "00:00:00",
+    "trainingTime": "00:00:00"
+  },
+  {
+    "name": "fire_catapult",
+    "localizedNameEn": "Fire catapult",
+    "localizedNameRu": "Огненная катапульта",
+    "tribe": "ROMAN",
+    "expenses": 6,
+    "speed": 3,
+    "capacity": 0,
+    "attack": 75,
+    "deffenceAgainstInfantry": 60,
+    "deffenceAgainstCavalry": 10,
+    "unitType": "WAR_MACHINE",
+    "trainingCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchTime": "00:00:00",
+    "trainingTime": "00:00:00"
+  },
+  {
+    "name": "senator",
+    "localizedNameEn": "Senator",
+    "localizedNameRu": "Сенатор",
+    "tribe": "ROMAN",
+    "expenses": 5,
+    "speed": 4,
+    "capacity": 0,
+    "attack": 50,
+    "deffenceAgainstInfantry": 40,
+    "deffenceAgainstCavalry": 30,
+    "unitType": "EXPANSION",
+    "trainingCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchTime": "00:00:00",
+    "trainingTime": "00:00:00"
+  },
+  {
+    "name": "settler",
+    "localizedNameEn": "Settler",
+    "localizedNameRu": "Поселенец",
+    "tribe": "ROMAN",
+    "expenses": 1,
+    "speed": 5,
+    "capacity": 3000,
+    "attack": 0,
+    "deffenceAgainstInfantry": 80,
+    "deffenceAgainstCavalry": 80,
+    "unitType": "EXPANSION",
+    "trainingCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchTime": "00:00:00",
+    "trainingTime": "00:00:00"
+  },
+  {
+    "name": "trader",
+    "localizedNameEn": "",
+    "localizedNameRu": "",
+    "description": null,
+    "tribe": "GAUL",
+    "speed": 24
+  },
+  {
+    "name": "phalang",
+    "localizedNameEn": "Phalang",
+    "localizedNameRu": "Фаланга",
+    "tribe": "GAUL",
+    "expenses": 1,
+    "speed": 7,
+    "capacity": 35,
+    "attack": 15,
+    "deffenceAgainstInfantry": 40,
+    "deffenceAgainstCavalry": 50,
+    "unitType": "FOOT_TROOPS",
+    "trainingCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchTime": "00:00:00",
+    "trainingTime": "00:00:00"
+  },
+  {
+    "name": "swordsman",
+    "localizedNameEn": "Swordsman",
+    "localizedNameRu": "Мечник",
+    "tribe": "GAUL",
+    "expenses": 1,
+    "speed": 6,
+    "capacity": 45,
+    "attack": 65,
+    "deffenceAgainstInfantry": 35,
+    "deffenceAgainstCavalry": 20,
+    "unitType": "FOOT_TROOPS",
+    "trainingCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchTime": "00:00:00",
+    "trainingTime": "00:00:00"
+  },
+  {
+    "name": "scout",
+    "localizedNameEn": "Scout",
+    "localizedNameRu": "Следопыт",
+    "tribe": "GAUL",
+    "expenses": 2,
+    "speed": 17,
+    "capacity": 0,
+    "attack": 0,
+    "deffenceAgainstInfantry": 20,
+    "deffenceAgainstCavalry": 10,
+    "unitType": "SCOUT",
+    "trainingCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchTime": "00:00:00",
+    "trainingTime": "00:00:00"
+  },
+  {
+    "name": "theutates_thunder",
+    "localizedNameEn": "Theutates Thunder",
+    "localizedNameRu": "Тевтатский гром",
+    "tribe": "GAUL",
+    "expenses": 2,
+    "speed": 19,
+    "capacity": 75,
+    "attack": 90,
+    "deffenceAgainstInfantry": 25,
+    "deffenceAgainstCavalry": 40,
+    "unitType": "CAVALRY",
+    "trainingCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchTime": "00:00:00",
+    "trainingTime": "00:00:00"
+  },
+  {
+    "name": "haeduan",
+    "localizedNameEn": "Haeduan",
+    "localizedNameRu": "Эдуйская конница",
+    "tribe": "GAUL",
+    "expenses": 3,
+    "speed": 13,
+    "capacity": 65,
+    "attack": 140,
+    "deffenceAgainstInfantry": 50,
+    "deffenceAgainstCavalry": 165,
+    "unitType": "CAVALRY",
+    "trainingCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchTime": "00:00:00",
+    "trainingTime": "00:00:00"
+  },
+  {
+    "name": "druidrider",
+    "localizedNameEn": "Druidrider",
+    "localizedNameRu": "Друид-всадник",
+    "tribe": "GAUL",
+    "expenses": 2,
+    "speed": 16,
+    "capacity": 35,
+    "attack": 45,
+    "deffenceAgainstInfantry": 115,
+    "deffenceAgainstCavalry": 55,
+    "unitType": "CAVALRY",
+    "trainingCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchTime": "00:00:00",
+    "trainingTime": "00:00:00"
+  },
+  {
+    "name": "battering_ram",
+    "localizedNameEn": "Battering Ram",
+    "localizedNameRu": "Таран",
+    "tribe": "GAUL",
+    "expenses": 3,
+    "speed": 4,
+    "capacity": 0,
+    "attack": 50,
+    "deffenceAgainstInfantry": 30,
+    "deffenceAgainstCavalry": 105,
+    "unitType": "WAR_MACHINE",
+    "trainingCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchTime": "00:00:00",
+    "trainingTime": "00:00:00"
+  },
+  {
+    "name": "trebuchet",
+    "localizedNameEn": "Trebuchet",
+    "localizedNameRu": "Требушет",
+    "tribe": "GAUL",
+    "expenses": 6,
+    "speed": 3,
+    "capacity": 0,
+    "attack": 70,
+    "deffenceAgainstInfantry": 45,
+    "deffenceAgainstCavalry": 10,
+    "unitType": "WAR_MACHINE",
+    "trainingCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchTime": "00:00:00",
+    "trainingTime": "00:00:00"
+  },
+  {
+    "name": "chieftain",
+    "localizedNameEn": "Chieftain",
+    "localizedNameRu": "Предводитель",
+    "tribe": "GAUL",
+    "expenses": 4,
+    "speed": 5,
+    "capacity": 0,
+    "attack": 40,
+    "deffenceAgainstInfantry": 50,
+    "deffenceAgainstCavalry": 50,
+    "unitType": "EXPANSION",
+    "trainingCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchTime": "00:00:00",
+    "trainingTime": "00:00:00"
+  },
+  {
+    "name": "settler",
+    "localizedNameEn": "Settler",
+    "localizedNameRu": "Поселенец",
+    "tribe": "GAUL",
+    "expenses": 1,
+    "speed": 5,
+    "capacity": 3000,
+    "attack": 0,
+    "deffenceAgainstInfantry": 80,
+    "deffenceAgainstCavalry": 80,
+    "unitType": "EXPANSION",
+    "trainingCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchTime": "00:00:00",
+    "trainingTime": "00:00:00"
+  },
+
+  {
+    "name": "trader",
+    "localizedNameEn": "",
+    "localizedNameRu": "",
+    "description": null,
+    "tribe": "TEUTON",
+    "speed": 12
+  },
+  {
+    "name": "clubswinger",
+    "localizedNameEn": "Clubswinger",
+    "localizedNameRu": "Дубинщик",
+    "tribe": "TEUTON",
+    "expenses": 1,
+    "speed": 7,
+    "capacity": 60,
+    "attack": 40,
+    "deffenceAgainstInfantry": 20,
+    "deffenceAgainstCavalry": 5,
+    "unitType": "FOOT_TROOPS",
+    "trainingCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchTime": "00:00:00",
+    "trainingTime": "00:00:00"
+  },
+  {
+    "name": "axefighter",
+    "localizedNameEn": "Axefighter",
+    "localizedNameRu": "Топорщик",
+    "tribe": "TEUTON",
+    "expenses": 1,
+    "speed": 6,
+    "capacity": 50,
+    "attack": 60,
+    "deffenceAgainstInfantry": 30,
+    "deffenceAgainstCavalry": 30,
+    "unitType": "FOOT_TROOPS",
+    "trainingCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchTime": "00:00:00",
+    "trainingTime": "00:00:00"
+  },
+  {
+    "name": "spearfighter",
+    "localizedNameEn": "Spearfighter",
+    "localizedNameRu": "Копьеносец",
+    "tribe": "TEUTON",
+    "expenses": 1,
+    "speed": 7,
+    "capacity": 40,
+    "attack": 10,
+    "deffenceAgainstInfantry": 35,
+    "deffenceAgainstCavalry": 60,
+    "unitType": "FOOT_TROOPS",
+    "trainingCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchTime": "00:00:00",
+    "trainingTime": "00:00:00"
+  },
+  {
+    "name": "scout",
+    "localizedNameEn": "Scout",
+    "localizedNameRu": "Скаут",
+    "tribe": "TEUTON",
+    "expenses": 1,
+    "speed": 9,
+    "capacity": 0,
+    "attack": 0,
+    "deffenceAgainstInfantry": 10,
+    "deffenceAgainstCavalry": 5,
+    "unitType": "SCOUT",
+    "trainingCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchTime": "00:00:00",
+    "trainingTime": "00:00:00"
+  },
+  {
+    "name": "teuton_knight",
+    "localizedNameEn": "Teuton Knight",
+    "localizedNameRu": "Тевтонская конница",
+    "tribe": "TEUTON",
+    "expenses": 3,
+    "speed": 9,
+    "capacity": 80,
+    "attack": 150,
+    "deffenceAgainstInfantry": 50,
+    "deffenceAgainstCavalry": 75,
+    "unitType": "CAVALRY",
+    "trainingCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchTime": "00:00:00",
+    "trainingTime": "00:00:00"
+  },
+  {
+    "name": "palading",
+    "localizedNameEn": "Paladin",
+    "localizedNameRu": "Паладин",
+    "tribe": "TEUTON",
+    "expenses": 2,
+    "speed": 10,
+    "capacity": 110,
+    "attack": 55,
+    "deffenceAgainstInfantry": 100,
+    "deffenceAgainstCavalry": 40,
+    "unitType": "CAVALRY",
+    "trainingCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchTime": "00:00:00",
+    "trainingTime": "00:00:00"
+  },
+  {
+    "name": "battering_ram",
+    "localizedNameEn": "Battering Ram",
+    "localizedNameRu": "Таран",
+    "tribe": "TEUTON",
+    "expenses": 3,
+    "speed": 4,
+    "capacity": 0,
+    "attack": 65,
+    "deffenceAgainstInfantry": 30,
+    "deffenceAgainstCavalry": 85,
+    "unitType": "WAR_MACHINE",
+    "trainingCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchTime": "00:00:00",
+    "trainingTime": "00:00:00"
+  },
+  {
+    "name": "catapult",
+    "localizedNameEn": "Catapult",
+    "localizedNameRu": "Катапульта",
+    "tribe": "TEUTON",
+    "expenses": 6,
+    "speed": 3,
+    "capacity": 0,
+    "attack": 50,
+    "deffenceAgainstInfantry": 60,
+    "deffenceAgainstCavalry": 10,
+    "unitType": "WAR_MACHINE",
+    "trainingCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchTime": "00:00:00",
+    "trainingTime": "00:00:00"
+  },
+  {
+    "name": "chief",
+    "localizedNameEn": "Chief",
+    "localizedNameRu": "Вождь",
+    "tribe": "TEUTON",
+    "expenses": 4,
+    "speed": 4,
+    "capacity": 0,
+    "attack": 40,
+    "deffenceAgainstInfantry": 60,
+    "deffenceAgainstCavalry": 40,
+    "unitType": "EXPANSION",
+    "trainingCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchTime": "00:00:00",
+    "trainingTime": "00:00:00"
+  },
+  {
+    "name": "settler",
+    "localizedNameEn": "Settler",
+    "localizedNameRu": "Поселенец",
+    "tribe": "TEUTON",
+    "expenses": 1,
+    "speed": 5,
+    "capacity": 3000,
+    "attack": 10,
+    "deffenceAgainstInfantry": 80,
+    "deffenceAgainstCavalry": 80,
+    "unitType": "EXPANSION",
+    "trainingCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchCost": {
+      "lumber": 0,
+      "clay": 0,
+      "iron": 0,
+      "crop": 0
+    },
+    "researchTime": "00:00:00",
+    "trainingTime": "00:00:00"
+  }
+]

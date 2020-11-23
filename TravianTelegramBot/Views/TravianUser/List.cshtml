@@ -1,0 +1,136 @@
+﻿@model IEnumerable<TTB.DAL.Models.TravianUser>
+
+@{
+    ViewData["Title"] = "Travian Users";
+}
+
+<h2>@ViewData["Title"]</h2>
+<div class="row">
+    <div class="col-xs-4">
+        <a asp-action="Create" class="btn btn-info">Create New</a>
+    </div>
+    @if (User.IsInRole("Admin"))
+    {
+        <div class="col-xs-4 pull-right" style="text-align:right">
+            <a asp-action="Pause" class="btn btn-danger">Pause All Jobs</a>
+        </div>
+    }
+</div>
+
+<div class="container" style="padding-top: 5px;">
+    <div id="successMessage" class="alert alert-success" style="display:none" onclick="$(this).css('display', 'none')">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Success!</strong><p></p>
+    </div>
+    <div id="errorMessage" class="alert alert-danger" style="display:none" onclick="$(this).css('display', 'none')">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Error!</strong><p></p>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th class="col-to-hide">
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Url)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+                    <td class="col-to-hide">
+                        Hidden
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Url)
+                    </td>
+                    <td>
+                        <input type="checkbox" class="isActiveChb" onclick="setActive(this, '@item.UserName')" @(item.IsActive ? "checked" : string.Empty) />
+                    </td>
+                    <td>
+                        <div class="menu-to-hide">
+                            @Html.ActionLink("Edit", "Edit", new { userName = item.UserName }) |
+                            @Html.ActionLink("Cookies", "Cookie", new { userName = item.UserName }) |
+                            @Html.ActionLink("Player Data", "Index", "PlayerData", new { userName = item.UserName }) |
+                            @Html.ActionLink("Commands", "Index", "JobManager", new { botUserName = User.Identity.Name, travianUserName = item.UserName })
+                            @if (User.IsInRole("Admin") || User.IsInRole("LogViewer"))
+                            {
+                                <div style="display:inline-block">| @Html.ActionLink("Watch", "Watch", new { userName = item.UserName })</div>
+                                <div style="display:inline-block">| @Html.ActionLink("Stop", "Pause", new { userName = item.UserName })</div>
+                            }
+                            <div style="display:inline-block">
+                                | @Html.ActionLink("Delete", "Delete", new { userName = item.UserName })
+                            </div>
+                        </div>
+                        <div class="dropdown menu-to-show">
+                            <button class="more-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="more-dot"></span>
+                                <span class="more-dot"></span>
+                                <span class="more-dot"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-right">
+                                <li>@Html.ActionLink("Edit", "Edit", new { userName = item.UserName })</li>
+                                <li>@Html.ActionLink("Cookies", "Cookie", new { userName = item.UserName })</li>
+                                <li>@Html.ActionLink("Player Data", "Index", "PlayerData", new { userName = item.UserName })</li>
+                                <li>@Html.ActionLink("Commands", "Index", "JobManager", new { botUserName = User.Identity.Name, travianUserName = item.UserName })</li>
+                                @if (User.IsInRole("Admin") || User.IsInRole("LogViewer"))
+                                {
+                                    <li>
+                                        @Html.ActionLink("Watch", "Watch", new { userName = item.UserName })
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("Stop", "Pause", new { userName = item.UserName })
+                                    </li>
+                                }
+                                <li>@Html.ActionLink("Delete", "Delete", new { userName = item.UserName })</li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+        })
+
+    function setActive(chb, userName) {
+        showLoader();
+        let initial = chb.checked;
+        $(".isActiveChb").prop("checked", false);
+        chb.checked = initial;
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("SetActive", "TravianUser")" + `?userName=${userName}&active=${chb.checked}`,
+                success: function (response) {
+                    hideLoader();
+                },
+                error: (xhr, status, resp) => {
+                    $("#errorMessage p").text(xhr.responseJSON);
+                    $("#errorMessage").css("display", "");
+                    hideLoader();
+                }
+            })
+        }
+
+    </script>
+}

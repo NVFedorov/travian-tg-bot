@@ -1,0 +1,26 @@
+﻿@model TravianTelegramBot.ViewModels.ErrorViewModel
+
+@{
+    ViewData["Title"] = "Application error";
+}
+
+<h2>Error occurred</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="RequestId" class="control-label"></label>
+                @Html.DisplayFor(m => m.RequestId)
+            </div>
+            <div class="form-group">
+                <label asp-for="Message" class="control-label"></label>
+                @Html.DisplayFor(m => m.Message)
+            </div>
+            <div class="form-group">
+                <label asp-for="Timestamp" class="control-label"></label>
+                @Html.DisplayFor(m => m.Timestamp)
+            </div>
+    </div>
+</div>
+

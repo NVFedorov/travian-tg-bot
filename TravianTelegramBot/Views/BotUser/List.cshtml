@@ -1,0 +1,104 @@
+﻿@model IEnumerable<TravianTelegramBot.Identity.BotUser>
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<TravianTelegramBot.Identity.BotUser> UserManager
+
+@{
+    ViewData["Title"] = "Bot User";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-info">Create New</a>
+</p>
+<div class="container" style="padding-top: 5px;">
+    <div id="successMessage" class="alert alert-success" style="display:none" onclick="$(this).css('display', 'none')">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Success!</strong><p></p>
+    </div>
+    <div id="errorMessage" class="alert alert-danger" style="display:none" onclick="$(this).css('display', 'none')">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Error!</strong><p></p>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ChatId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                Log Access
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsEnabled)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AccessFailedCount)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ChatId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedOn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    <input type="checkbox" onclick="updateRole(this, '@item.UserName')" @(await UserManager.IsInRoleAsync(item, "LogViewer") ? "checked" : string.Empty) />
+                </td>
+                <td>
+                    <input type="checkbox" @(item.IsEnabled ?? false ? "checked" : string.Empty) disabled="disabled" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AccessFailedCount)
+                </td>
+                <td>
+                    @if (item.IsEnabled.HasValue && item.IsEnabled.Value)
+                    {
+                        @Html.ActionLink("Block", "Block", new { userName = item.UserName }, new { @class = "btn btn-danger", style = "width: 70px;" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Enable", "Enable", new { userName = item.UserName }, new { @class = "btn btn-success", style = "width: 70px;" })
+                    }
+                    @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+        })
+
+        function updateRole(chb, userName) {
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("UpdateRole", "BotUser")" + `?assign=${chb.checked}&userName=${userName}`,
+                error: (xhr, status, resp) => {
+                    $("#errorMessage p").text(xhr.responseJSON);
+                    $("#errorMessage").css("display", "");
+                }
+            })
+        }
+    </script>
+}
